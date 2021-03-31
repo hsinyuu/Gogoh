@@ -1,0 +1,12 @@
+{
+  "name": "Gogoh",
+  "displayName": "Gogoh",
+  "expo": {
+    "name": "Gogoh",
+    "slug": "Gogoh",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
