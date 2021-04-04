@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-gogoh-dev-83452-authRole",
+      "UnauthRoleArn": "arn:aws:iam::150219326989:role/amplify-gogoh-dev-83452-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::150219326989:role/amplify-gogoh-dev-83452-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-gogoh-dev-83452-deployment",
+      "UnauthRoleName": "amplify-gogoh-dev-83452-unauthRole",
+      "StackName": "amplify-gogoh-dev-83452",
+      "StackId": "arn:aws:cloudformation:us-east-2:150219326989:stack/amplify-gogoh-dev-83452/4e1a2170-955b-11eb-a595-06f9c8dfa786",
+      "AmplifyAppId": "dqzwi4daeeddc"
+    }
+  }
+}
