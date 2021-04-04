@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "jsx": "react-native",
+    "target": "esnext",
+    "lib": [
+      "esnext"
+    ],
     "baseUrl": ".",
     "paths": {
       "assets": ["src/assets/*"],
@@ -13,6 +17,13 @@
       "services": ["src/services/*"],
       "styles": ["src/styles/*"],
       "utils": ["src/utils/*"]
-    }
+    },
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node"
   }
 }

@@ -3,12 +3,6 @@ import {
 } from 'react-native';
 
 const styles = StyleSheet.create({
-    avatar: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        margin: 10,
-    },
     container: {
         width: '100%',
         height: 90,
