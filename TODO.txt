@@ -1,0 +1,38 @@
+---------- Milestone 0 ---------- 
+1. Add Amplify Auth for user signin/out
+2. Add Amplify API
+    - User model
+    - User profile
+        - Type
+        - Payment
+        - Setting
+        - Folders
+        - ID verification
+    - Messenger chat room
+    - Messenger list
+    - Lease term
+    - Issue
+    - Rate report
+3. Messenger
+4. Dummy term 
+5. Issue module 
+6. Home page 
+7. Payment
+8. Lease term
+---------- Milestone 1 ---------- 
+9. Landlord login / post
+10. Add lease term with exisiting tenant, add property
+11. Test issue module
+12. Test rate report
+13. Test messenger
+14. Test payment
+---------- Milestone 2 ---------- 
+15. Property API, post property
+16. Basic property list
+17. Tenant application
+18. Landlord tenant selection
+19. Lease signing
+20. Add to folder
+21. Folder list view, detail view
+22. Refined search, filter
+23. Map gadget
