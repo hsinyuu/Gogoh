@@ -1,32 +1,119 @@
 import React from "react";
-import { Text, SafeAreaView } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { SafeAreaView, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Auth } from "aws-amplify";
+import OptionItem from "molecules/OptionItem";
+import { AntDesign } from "@expo/vector-icons";
+import AvatarImage from "atoms/AvatarImage";
+import { FlatList } from "react-native-gesture-handler";
 
-async function signOut() {
-    try {
-        console.log("Signout")
-        await Auth.signOut()
-    } catch (error) {
-        console.log('error signing out: ', error);
-    }
+async function logout() {
+  try {
+    console.log("Signout");
+    await Auth.signOut();
+  } catch (error) {
+    console.log("error signing out: ", error);
+  }
 }
+
+const optionList = [
+  {
+    id: "0",
+    name: "Personal information",
+    navigateTo: "PersonalInfo",
+    onPress: null,
+    icon: <AntDesign name="profile" size={24} color="#444444" />,
+  },
+  {
+    id: "7",
+    name: "Lease history",
+    navigateTo: "LeaseHistory",
+    onPress: null,
+    icon: <AntDesign name="profile" size={24} color="#444444" />,
+  },
+  {
+    id: "1",
+    name: "Payment",
+    navigateTo: null,
+    onPress: null,
+    icon: <AntDesign name="profile" size={24} color="#444444" />,
+  },
+  {
+    id: "2",
+    name: "Notifications",
+    navigateTo: null,
+    onPress: null,
+    icon: <AntDesign name="profile" size={24} color="#444444" />,
+  },
+  {
+    id: "3",
+    name: "My lists",
+    navigateTo: null,
+    onPress: null,
+    icon: <AntDesign name="profile" size={24} color="#444444" />,
+  },
+  {
+    id: "4",
+    name: "My offers",
+    navigateTo: null,
+    onPress: null,
+    icon: <AntDesign name="profile" size={24} color="#444444" />,
+  },
+  {
+    id: "5",
+    name: "Account security",
+    navigateTo: null,
+    onPress: null,
+    icon: <AntDesign name="profile" size={24} color="#444444" />,
+  },
+  {
+    id: "6",
+    name: "Logout",
+    navigateTo: null,
+    onPress: logout,
+    icon: <AntDesign name="profile" size={24} color="#444444" />,
+  },
+];
+
 const Profile = () => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView>
-      <Text>Profile</Text>
-      <TouchableOpacity
-        onPress={signOut}
-        style={{
-          width: "100%",
-          height: 50,
-          backgroundColor: "pink",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <Text style={{ fontSize: 25 }}>Signout</Text>
-      </TouchableOpacity>
+      <View style={{ backgroundColor: "white", height: '100%'}}>
+        <View
+          style={{
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            padding: 10,
+          }}
+        >
+          <AvatarImage
+            uri={
+              "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/2.jpg"
+            }
+            size={100}
+          />
+          <Text style={{ fontSize: 30, color: "#444444", padding: 10 }}>
+            Vincent
+          </Text>
+        </View>
+        <FlatList
+          data={optionList}
+          renderItem={({ item }) => {
+            return (
+              <OptionItem
+                name={item.name}
+                onPress={item.onPress}
+                navigateTo={item.navigateTo}
+                icon={item.icon}
+              />
+            );
+          }}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
     </SafeAreaView>
   );
 };

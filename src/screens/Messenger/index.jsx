@@ -5,8 +5,11 @@ import chatRoom from "assets/ChatRooms";
 import { FlatList } from "react-native-gesture-handler";
 
 const Messenger = () => {
+  const addChatRoom = () => {
+
+  }
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={chatRoom}
         renderItem={(item) => <MessengerListItem data={item} />}
@@ -15,4 +18,13 @@ const Messenger = () => {
     </View>
   );
 };
+
+const styles = {
+  container: {
+    backgroundColor:'white',
+    paddingTop: 20,
+    height: '100%'
+  }
+}
+
 export default Messenger;

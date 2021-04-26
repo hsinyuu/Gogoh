@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "gogoh",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authgogohe2f66a97",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

@@ -1,14 +1,14 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import MessageBox from 'components/atoms/MessageBox';
+import MessengerMessageBox from 'molecules/MessengerMessageBox';
 const MessengerRoom = () => {
   return (
     <View >
-      <MessageBox username='Vincent' message='asdf' />
-      <MessageBox username='Vincent' message='asdf' />
-      <MessageBox username='Vincent' message='asdf' />
-      <MessageBox username='Vincent' message='asdf' />
-      <MessageBox username='Vincent' message='asdf' />
+      <MessengerMessageBox username='Vincent' message='asdf' />
+      <MessengerMessageBox username='Vincent' message='asdf' />
+      <MessengerMessageBox username='Vincent' message='asdf' />
+      <MessengerMessageBox username='Vincent' message='asdf' />
+      <MessengerMessageBox username='Vincent' message='asdf' />
     </View>
   );
 };

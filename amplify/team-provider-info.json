@@ -10,6 +10,11 @@
       "StackName": "amplify-gogoh-dev-83452",
       "StackId": "arn:aws:cloudformation:us-east-2:150219326989:stack/amplify-gogoh-dev-83452/4e1a2170-955b-11eb-a595-06f9c8dfa786",
       "AmplifyAppId": "dqzwi4daeeddc"
+    },
+    "categories": {
+      "auth": {
+        "gogohe2f66a97": {}
+      }
     }
   }
 }

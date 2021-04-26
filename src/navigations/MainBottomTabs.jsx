@@ -4,8 +4,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import MessengerStack from "navigations/MessengerStack";
-import Home from "screens/Home";
-import Profile from 'screens/Profile';
+import ProfileStack from "navigations/ProfileStack";
+import HomeStack from "navigations/HomeStack";
 import Explore from 'screens/Explore';
 const Tab = createBottomTabNavigator();
 const MainBottomTabs = () => {
@@ -15,7 +15,7 @@ const MainBottomTabs = () => {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeStack}
         options={{
           tabBarIcon: ({ color }) => (
             <AntDesign name="home" size={24} color={color} />
@@ -42,7 +42,7 @@ const MainBottomTabs = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileStack}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons

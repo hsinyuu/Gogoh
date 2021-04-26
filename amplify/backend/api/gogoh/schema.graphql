@@ -1,0 +1,122 @@
+type User @model 
+  @key(name: "userByEmail", fields: ["email"], queryField: "userByEmail") {
+{
+  id: ID!
+  userRole: String!
+  firstName: String!
+  lastName: String!
+  avatarImage: String!
+  phoneNumber: String!
+  email: String!
+  #registerDate: AWSDateTime!!
+  leaseTenantHistory: [LeaseTenant] @connection(keyName: "byUser", fields: ["id"])
+  leaseLandlordHistory: [LeaseLandlord] @connection(keyName: "byUser", fields: ["id"])
+}
+
+type LeaseTenant
+  @model
+  @key(name: "byUser", fields: ["userID"])
+  @key(name: "byLeaseTerm", fields: ["leaseTermID"]) {
+  id: ID!
+  userID: ID!
+  leaseTermID: ID!
+  user: User! @connection(fields: ["userID"])
+  leaseTerm: LeaseTerm! @connection(fields: ["leaseTermID"])
+  status: String!
+}
+
+type LeaseLandlord
+  @model
+  @key(name: "byUser", fields: ["userID"])
+  @key(name: "byLeaseTerm", fields: ["leaseTermID"]) {
+  id: ID!
+  userID: ID!
+  leaseTermID: ID!
+  user: User! @connection(fields: ["userID"])
+  leaseTerm: LeaseTerm! @connection(fields: ["leaseTermID"])
+  status: String! # [ACCEPTED, PENDING, DECLINED]
+}
+
+
+type LeaseTerm @model @key(name: "byProperty", fields: ["propertyID"]) {
+  id: ID!
+  property: Property @connection(fields: ["propertyID"])
+  propertyID: ID!
+  tenants: [LeaseTenant] @connection(keyName: "byLeaseTerm", fields: ["id"])
+  landlords: [LeaseLandlord] @connection(keyName: "byLeaseTerm", fields: ["id"])
+  termStartDate: AWSDate!
+  termEndDate: AWSDate!
+}
+
+type Property
+  @model
+  @key(name: "propertyByAddress", fields: ["address"], queryField: "propertyByAddress") {
+  id: ID!
+  address: String!
+  leaseHistory: [LeaseTerm] @connection(keyName: "byProperty", fields: ["id"])
+}
+
+#type ChatRoomUser
+#  @model
+#  @key(name: "byUser", fields: ["userID", "chatRoomID"])
+#  @key(name: "byChatRoom", fields: ["chatRoomID", "userID"]) {
+#  id: ID!
+#  userID: ID!
+#  chatRoomID: ID!
+#  user: UserAccount @connection(fields: ["userID"])
+#  chatRoom: ChatRoom @connection(fields: ["chatRoomID"])
+#}
+#
+#type ChatRoom @model {
+#  id: ID!
+#  chatRoomUsers: [ChatRoomUser]
+#    @connection(keyName: "byChatRoom", fields: ["id"])
+#  #messages: [ChatMessage] @connection(keyName: "byChatRoom", fields: ["id"])
+#  #lastMessageID: ID!
+#  #lastMessage: ChatMessage @connection(fields: ["lastMessageID"])
+#}
+#
+#type ChatMessage
+#  @model
+#  @key(
+#    name: "byChatRoom"
+#    fields: ["chatRoomID", "createdAt"]
+#    queryField: "messagesByChatRoom"
+#  ) {
+#  id: ID!
+#  createdAt: String!
+#  content: String!
+#  userID: ID!
+#  chatRoomID: ID!
+#  user: UserAccount @connection(fields: ["userID"])
+#  chatRoom: ChatRoom @connection(fields: ["chatRoomID"])
+#}
+
+# type RatingReport @model {
+#}
+
+#type RatingCriteria @model {
+#  criteria: String!
+#  score: Int!
+#  description: String
+#  photosOrVideos: [String]
+#}
+
+#    - UserAccount
+#        - Role String! //Landlord or tenant, possibly administrator and workers etc.
+#        - PersonalInfo: PersonalInfo
+#        - RatingProfile: RatingProfile!
+#        - RatingHistory: [RateReport]
+#        - AccountPreference: AccountPreference!
+#        - LikedPropertyFolders: [PropertyFolder]
+#        - CurrentLease: Lease!
+#        - LeaseHistory: [Lease]
+#        - PreferredPaymentMethod: String!
+#        - PaymentHistory: [PaymentRecord]
+#   - PersonalInfo
+#        - First Name
+#        - Last Name
+#        - Phone Number, verified?
+#        - Email, verified?
+#        - Avatar Image
+#        - Register date

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-const MessageBox = (props) => {
+const MessengerMessageBox = (props) => {
   const { username, message } = props;
   return (
     <View style={styles.container}>
@@ -21,4 +21,4 @@ const styles = {
 
 }
 
-export default MessageBox;
+export default MessengerMessageBox;

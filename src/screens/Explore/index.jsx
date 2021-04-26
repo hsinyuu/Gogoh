@@ -1,8 +1,12 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React from "react";
+import { SafeAreaView, Text } from "react-native";
 
 const Explore = () => {
-    return <Text>Explore</Text>
-}
+  return (
+    <SafeAreaView>
+      <Text>Explore</Text>
+    </SafeAreaView>
+  );
+};
 
-export default Explore
+export default Explore;
