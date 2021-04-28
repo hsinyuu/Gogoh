@@ -36,6 +36,10 @@ const fetchUser = async () => {
   console.log('fetch')
 };
 
+const fetchUserByEmail = async () => {
+  return null;
+}
+
 export {
   fetchUser
 }

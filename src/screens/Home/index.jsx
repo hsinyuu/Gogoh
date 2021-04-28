@@ -19,7 +19,7 @@ const Home = () => {
           name="Has an existing contract?"
           details="Invite landlord to get started"
           icon={<FontAwesome name="address-card-o" size={40} color="black" />}
-          callback={() => navigation.navigate("AddExistingLease")}
+          callback={() => navigation.navigate("AddressSearch")}
         />
       </View>
       <View style={styles.container}>

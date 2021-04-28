@@ -4,23 +4,20 @@ import { useNavigation } from "@react-navigation/native";
 import { useForm } from "utils/hooks";
 import { TextInput, Text, SafeAreaView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import {
-  getLeaseTermFromLeaseTermID,
   fetchOrCreateProperty,
   createNewLeaseTerm,
   createLeaseTenantForLeaseTerm,
-  createLeaseLandlordForLeaseTerm,
 } from "services/lease";
-import { NavigationContainer } from "@react-navigation/native";
 
-const AddExistingLease = () => {
+const AddExistingLease = ({ route }) => {
+  const address = route.params.name;
+  const placeID = route.params.id;
   const userContext = React.useContext(UserContext);
   const navigation = useNavigation();
   const [formValues, setFormValues] = useForm({
     landlordEmail: "",
-    propertyAddress: "",
+    propertyAddress: address,
     leaseStartDate: "",
     leaseEndDate: "",
   });
@@ -49,14 +46,17 @@ const AddExistingLease = () => {
       <Text style={styles.description}>
         Invite landlord to add the current contract
       </Text>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+        style={{width:388, borderRadius:10, marginBottom: 20, paddingLeft:10, flexDirection: 'column', justifyContent: 'center', height: 50, borderWidth:1}}
+      >
+        <Text>{formValues.propertyAddress}</Text>
+      </TouchableOpacity>
       <TextInput
         onChangeText={(text) => setFormValues("landlordEmail", text)}
         placeholder={"landlord email"}
-        style={styles.input}
-      ></TextInput>
-      <TextInput
-        onChangeText={(text) => setFormValues("propertyAddress", text)}
-        placeholder={"address"}
         style={styles.input}
       ></TextInput>
       <TextInput
@@ -115,36 +115,3 @@ const styles = {
 };
 
 export default AddExistingLease;
-
-const GoogleAutocompleteTextField = () => {
-  return (
-    <GooglePlacesAutocomplete
-      styles={{
-        container: {
-          backgroundColor: "pink",
-        },
-        textInputContainer: {
-          borderWidth: 1,
-          borderRadius: 20,
-          width: 315,
-          alignSelf: "center",
-          marginTop: 20,
-          height: 55,
-          backgroundColor: "white",
-        },
-        predefinedPlacesDescription: {
-          color: "#1faadb",
-        },
-      }}
-      placeholder="Search"
-      onPress={(data, details = null) => {
-        // 'details' is provided when fetchDetails = true
-        console.log(data, details);
-      }}
-      query={{
-        key: "AIzaSyBV28Ek-XvPctPzsuwJeCkNKkoSPWBEuKM",
-        language: "en",
-      }}
-    />
-  );
-};
