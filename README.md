@@ -11,7 +11,17 @@ expo start
 ```
 
 ### Amplify resource
-We are using aws appsync. 
+We are using aws appsync.
+```
+# Show current aws service in use
+amplify status
+
+# If you modify graphql schema and want to test the api
+amplify api mock
+
+# Update the api service
+amplify api push
+```
 
 ### Schema overview
 Amplify automatically generates graphql queris and mutations from schema:
