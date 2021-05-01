@@ -16,6 +16,7 @@ export const getUser = /* GraphQL */ `
           id
           userID
           leaseTermID
+          status
           createdAt
           updatedAt
         }
@@ -26,10 +27,20 @@ export const getUser = /* GraphQL */ `
           id
           userID
           leaseTermID
+          status
           createdAt
           updatedAt
         }
         nextToken
+      }
+      outstandingActions {
+        id
+        title
+        action
+        startTime
+        endTime
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -56,6 +67,15 @@ export const listUsers = /* GraphQL */ `
         }
         leaseLandlordHistory {
           nextToken
+        }
+        outstandingActions {
+          id
+          title
+          action
+          startTime
+          endTime
+          createdAt
+          updatedAt
         }
         createdAt
         updatedAt
@@ -84,6 +104,15 @@ export const getLeaseTenant = /* GraphQL */ `
         leaseLandlordHistory {
           nextToken
         }
+        outstandingActions {
+          id
+          title
+          action
+          startTime
+          endTime
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -107,6 +136,7 @@ export const getLeaseTenant = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      status
       createdAt
       updatedAt
     }
@@ -142,6 +172,7 @@ export const listLeaseTenants = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        status
         createdAt
         updatedAt
       }
@@ -169,6 +200,15 @@ export const getLeaseLandlord = /* GraphQL */ `
         leaseLandlordHistory {
           nextToken
         }
+        outstandingActions {
+          id
+          title
+          action
+          startTime
+          endTime
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -192,6 +232,7 @@ export const getLeaseLandlord = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      status
       createdAt
       updatedAt
     }
@@ -227,6 +268,7 @@ export const listLeaseLandlords = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        status
         createdAt
         updatedAt
       }
@@ -253,6 +295,7 @@ export const getLeaseTerm = /* GraphQL */ `
           id
           userID
           leaseTermID
+          status
           createdAt
           updatedAt
         }
@@ -263,6 +306,7 @@ export const getLeaseTerm = /* GraphQL */ `
           id
           userID
           leaseTermID
+          status
           createdAt
           updatedAt
         }
@@ -339,6 +383,88 @@ export const listPropertys = /* GraphQL */ `
         address
         leaseHistory {
           nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getOutstandingAction = /* GraphQL */ `
+  query GetOutstandingAction($id: ID!) {
+    getOutstandingAction(id: $id) {
+      id
+      title
+      action
+      startTime
+      endTime
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listOutstandingActions = /* GraphQL */ `
+  query ListOutstandingActions(
+    $filter: ModelOutstandingActionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listOutstandingActions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        title
+        action
+        startTime
+        endTime
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const userByEmail = /* GraphQL */ `
+  query UserByEmail(
+    $email: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    userByEmail(
+      email: $email
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userRole
+        firstName
+        lastName
+        avatarImage
+        phoneNumber
+        email
+        leaseTenantHistory {
+          nextToken
+        }
+        leaseLandlordHistory {
+          nextToken
+        }
+        outstandingActions {
+          id
+          title
+          action
+          startTime
+          endTime
+          createdAt
+          updatedAt
         }
         createdAt
         updatedAt

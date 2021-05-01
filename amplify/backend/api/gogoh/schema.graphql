@@ -1,5 +1,5 @@
 type User @model 
-  @key(name: "userByEmail", fields: ["email"], queryField: "userByEmail") {
+  @key(name: "userByEmail", fields: ["email"], queryField: "userByEmail")
 {
   id: ID!
   userRole: String!
@@ -8,9 +8,10 @@ type User @model
   avatarImage: String!
   phoneNumber: String!
   email: String!
-  #registerDate: AWSDateTime!!
+  #registerDate: AWSDateTime!
   leaseTenantHistory: [LeaseTenant] @connection(keyName: "byUser", fields: ["id"])
   leaseLandlordHistory: [LeaseLandlord] @connection(keyName: "byUser", fields: ["id"])
+  outstandingActions: [OutstandingAction]
 }
 
 type LeaseTenant
@@ -37,7 +38,6 @@ type LeaseLandlord
   status: String! # [ACCEPTED, PENDING, DECLINED]
 }
 
-
 type LeaseTerm @model @key(name: "byProperty", fields: ["propertyID"]) {
   id: ID!
   property: Property @connection(fields: ["propertyID"])
@@ -54,6 +54,14 @@ type Property
   id: ID!
   address: String!
   leaseHistory: [LeaseTerm] @connection(keyName: "byProperty", fields: ["id"])
+}
+
+type OutstandingAction @model {
+  id: ID!
+  title: String!
+  action: String!
+  startTime: AWSDateTime
+  endTime: AWSDateTime
 }
 
 #type ChatRoomUser

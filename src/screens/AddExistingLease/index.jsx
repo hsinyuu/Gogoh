@@ -5,10 +5,10 @@ import { useForm } from "utils/hooks";
 import { TextInput, Text, SafeAreaView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {
-  fetchOrCreateProperty,
-  createNewLeaseTerm,
-  createLeaseTenantForLeaseTerm,
+  createLeaseTermForPropertyAddress,
+  addLeaseTermToUser,
 } from "services/lease";
+import { getUserByEmail } from "services/user";
 
 const AddExistingLease = ({ route }) => {
   const address = route.params.name;
@@ -16,31 +16,60 @@ const AddExistingLease = ({ route }) => {
   const userContext = React.useContext(UserContext);
   const navigation = useNavigation();
   const [formValues, setFormValues] = useForm({
-    landlordEmail: "",
+    inviteEmail: "",
     propertyAddress: address,
     leaseStartDate: "",
     leaseEndDate: "",
   });
 
-  const createLeaseForTenantAndLandlord = () => {
-    fetchOrCreateProperty(formValues.propertyAddress)
-      .then((propertyData) => propertyData.id)
-      .then((propertyID) =>
-        createNewLeaseTerm(
-          propertyID,
-          formValues.leaseStartDate,
-          formValues.leaseEndDate
-        )
-      )
-      .then((leaseTermData) =>
-        createLeaseTenantForLeaseTerm(userContext.id, leaseTermData.id)
-      )
-      .then((leaseTenantUserData) =>
-        navigation.navigate("Lease", {
-          leaseTermID: leaseTenantUserData.leaseTermID,
-        })
-      );
+  const createLeaseForTenantAndLandlord = async () => {
+    const leaseTermData = await createLeaseTermForPropertyAddress(
+      formValues.propertyAddress,
+      formValues.leaseStartDate,
+      formValues.leaseEndDate
+    )
+      .then((leaseTermData) => {
+        addLeaseTermToUser(
+          leaseTermData.id,
+          userContext.id,
+          userContext.userRole,
+          "ACCEPTED"
+        );
+        return leaseTermData;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    let invitedLeaseUserData = await getUserByEmail(formValues.inviteEmail)
+      .then((userData) => {
+        console.log(userData);
+        if (userData.items.length == 0) {
+          console.log("Need implementation: Send invite through email")
+          return;
+        } else if (userData.items.length == 1) {
+          return addLeaseTermToUser(
+            leaseTermData.id,
+            userData.items[0].id,
+            userData.items[0].userRole,
+            "PENDING"
+          );
+        } else {
+          console.error(
+            `Multiple user with same email ${formValues.inviteEmail} ${userData}`
+          );
+          return;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    navigation.navigate("Lease", {
+      leaseTermID: leaseTermData.id,
+    });
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.description}>
@@ -50,13 +79,26 @@ const AddExistingLease = ({ route }) => {
         onPress={() => {
           navigation.goBack();
         }}
-        style={{width:388, borderRadius:10, marginBottom: 20, paddingLeft:10, flexDirection: 'column', justifyContent: 'center', height: 50, borderWidth:1}}
+        style={{
+          width: 388,
+          borderRadius: 10,
+          marginBottom: 20,
+          paddingLeft: 10,
+          flexDirection: "column",
+          justifyContent: "center",
+          height: 50,
+          borderWidth: 1,
+        }}
       >
         <Text>{formValues.propertyAddress}</Text>
       </TouchableOpacity>
       <TextInput
-        onChangeText={(text) => setFormValues("landlordEmail", text)}
+        onChangeText={(text) => setFormValues("inviteEmail", text)}
         placeholder={"landlord email"}
+        keyboardType='email-address'
+        autoCapitalize='none'
+        autoCorrect={false}
+        autoCompleteType='email'
         style={styles.input}
       ></TextInput>
       <TextInput

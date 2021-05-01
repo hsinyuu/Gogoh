@@ -5,6 +5,14 @@ import { FontAwesome } from "@expo/vector-icons";
 import AvatarImage from "atoms/AvatarImage";
 import { UserContext } from "../../context/UserContext";
 import { useNavigation } from "@react-navigation/native";
+import {
+  listAllLeaseLandlords,
+  listAllLeaseTenants,
+  listAllLeaseTerms,
+  deleteLeaseTenantFromID,
+  deleteLeaseLandlordFromID,
+  deleteLeaseTermFromID
+} from "services/lease";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -20,6 +28,45 @@ const Home = () => {
           details="Invite landlord to get started"
           icon={<FontAwesome name="address-card-o" size={40} color="black" />}
           callback={() => navigation.navigate("AddressSearch")}
+        />
+        <Event
+          name="Remove all lease tenants"
+          details="asdf"
+          icon={<FontAwesome name="address-card-o" size={40} color="black" />}
+          callback={() => {
+            listAllLeaseTenants().then(({ items }) => {
+              items.forEach((itm) => {
+                console.log(itm);
+                deleteLeaseTenantFromID(itm.id);
+              });
+            });
+          }}
+        />
+        <Event
+          name="Remove all lease landlords"
+          details="asdf"
+          icon={<FontAwesome name="address-card-o" size={40} color="black" />}
+          callback={() => {
+            listAllLeaseLandlords().then(({ items }) => {
+              items.forEach((itm) => {
+                console.log(itm);
+                deleteLeaseLandlordFromID(itm.id);
+              });
+            });
+          }}
+        />
+        <Event
+          name="Remove all lease terms"
+          details="asdf"
+          icon={<FontAwesome name="address-card-o" size={40} color="black" />}
+          callback={() => {
+            listAllLeaseTerms().then(({ items }) => {
+              items.forEach((itm) => {
+                console.log(itm);
+                deleteLeaseTermFromID(itm.id);
+              });
+            });
+          }}
         />
       </View>
       <View style={styles.container}>

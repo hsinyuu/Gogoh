@@ -6,6 +6,7 @@ import OptionItem from "molecules/OptionItem";
 import { AntDesign } from "@expo/vector-icons";
 import AvatarImage from "atoms/AvatarImage";
 import { FlatList } from "react-native-gesture-handler";
+import { UserContext } from "../../context/UserContext";
 
 async function logout() {
   try {
@@ -77,9 +78,10 @@ const optionList = [
 
 const Profile = () => {
   const navigation = useNavigation();
+  const userContext = React.useContext(UserContext);
   return (
     <SafeAreaView>
-      <View style={{ backgroundColor: "white", height: '100%'}}>
+      <View style={{ backgroundColor: "white", height: "100%" }}>
         <View
           style={{
             flexDirection: "column",
@@ -89,14 +91,9 @@ const Profile = () => {
             padding: 10,
           }}
         >
-          <AvatarImage
-            uri={
-              "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/2.jpg"
-            }
-            size={100}
-          />
+          <AvatarImage size={100} uri={userContext.avatarImage} />
           <Text style={{ fontSize: 30, color: "#444444", padding: 10 }}>
-            Vincent
+            {`${userContext.firstName} ${userContext.lastName}`}
           </Text>
         </View>
         <FlatList

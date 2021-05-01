@@ -4,7 +4,7 @@ import AvatarImage from "atoms/AvatarImage";
 import { getLeaseTermFromLeaseTermID } from "services/lease";
 
 const LeaseParticipant = (props) => {
-  const { firstName, lastName, avatarImage } = props;
+  const { firstName, lastName, avatarImage, status } = props;
   return (
     <View
       style={{
@@ -15,7 +15,7 @@ const LeaseParticipant = (props) => {
       }}
     >
       <AvatarImage uri={avatarImage} size={50} />
-      <Text style={{ fontSize: 20 }}>{`${firstName} ${lastName}`}</Text>
+      <Text style={{ fontSize: 20 }}>{`${firstName} ${lastName} ${status}`}</Text>
     </View>
   );
 };
@@ -46,9 +46,12 @@ const Lease = ({ route }) => {
         {leaseTerm.landlords.items.length == 0 ? (
           <Text>Pending landlord</Text>
         ) : (
-          <Text>
-            {`Landlords: ${leaseTerm.landlords.items[0].user.firstName} ${leaseTerm.landlords.items[0].user.lastName}`}
-          </Text>
+          <LeaseParticipant
+            firstName={leaseTerm.landlords.items[0].user.firstName}
+            lastName={leaseTerm.landlords.items[0].user.lastName}
+            avatarImage={leaseTerm.landlords.items[0].user.avatarImage}
+            status={leaseTerm.landlords.items[0].status}
+          />
         )}
       </View>
       <View style={styles.sectionContainer}>
@@ -60,6 +63,7 @@ const Lease = ({ route }) => {
             firstName={leaseTerm.tenants.items[0].user.firstName}
             lastName={leaseTerm.tenants.items[0].user.lastName}
             avatarImage={leaseTerm.tenants.items[0].user.avatarImage}
+            status={leaseTerm.tenants.items[0].status}
           />
         )}
       </View>
