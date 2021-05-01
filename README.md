@@ -10,9 +10,11 @@ amplify init
 expo start
 ```
 
-### Amplify resource
-We are using aws appsync.
+### Amplify resources
 ```
+# Good resource to get started
+https://docs.amplify.aws/start/getting-started/data-model/q/integration/react-native#deploying-the-api
+
 # Show current aws service in use
 amplify status
 
