@@ -1,24 +1,49 @@
 ---------- Milestone 0 ---------- 
 1. Add Amplify Auth for user signin/out
-2. Add Amplify API
-    - User model
-    - User profile
-        - Type
-        - Payment
+2. Add Amplify Schema and API
+Basic structure setup
+[x] User profile 
+[x] Lease term
+[x] Lease term history
+[ ] Send invite status for lease
+[ ] Lease setup messenger and property module
+Events
+[ ] Events model
+    - Need to support 
+        - rating
+        - issue
+        - profile edit
+        - lease invite
+        - lease application request
+Messenger
+[ ] Messenger model
+[ ] Auto update new message
+Issue
+[ ] Issue report screen
+[ ] Add pictures
+Rating
+[ ] Rating report
+[ ] Rating profile
+[ ] Automated rating event
+        - User Type [Landlord/Tenant]
+        - Payment Method
+        - Payment History
         - Setting
         - Folders
-        - ID verification
+        - Lease
+        - Lease History
     - Messenger chat room
     - Messenger list
     - Lease term
     - Issue
-    - Rate report
+    - Rating report
 3. Messenger
-4. Dummy term 
+4. Lease Term
+    - Create existing lease term, pend landlord to accept or make modifications
 5. Issue module 
 6. Home page 
 7. Payment
-8. Lease term
+
 ---------- Milestone 1 ---------- 
 9. Landlord login / post
 10. Add lease term with exisiting tenant, add property
