@@ -3,7 +3,7 @@ import {
     graphqlOperation
 } from "aws-amplify";
 import {
-    getLeaseTerm,
+    getLeaseTermWithProperty,
     getUserLeaseHistory,
     deleteLeaseTerm,
     deleteLeaseTenant,
@@ -13,13 +13,17 @@ import {
     listLeaseLandlords
 } from "../graphql/customQuries";
 import {
+    getLeaseTerm,
     propertyByAddress,
 } from "../graphql/queries";
 import {
+    updateLeaseTenant,
+    updateLeaseLandlord,
     createProperty,
     createLeaseTerm,
     createLeaseTenant,
     createLeaseLandlord,
+    updateLeaseTerm
 } from "../graphql/mutations";
 
 export const fetchOrCreateProperty = async (propertyAddress) => {
@@ -48,13 +52,19 @@ export const fetchOrCreateProperty = async (propertyAddress) => {
 }
 
 export const createNewLeaseTerm = async (propertyID, termStartDate, termEndDate) => {
-    console.log(propertyID, termStartDate, termEndDate);
+    const LeaseTermStatus = {
+        AMEND: "AMEND",
+        STARTED: "STARTED",
+        ENDED: "ENDED"
+    }
+    console.log(propertyID, termStartDate, termEndDate, LeaseTermStatus.AMEND);
     const newLeaseTermData = await API.graphql(
         graphqlOperation(createLeaseTerm, {
             input: {
                 propertyID,
                 termStartDate,
                 termEndDate,
+                status: "AMEND"
             },
         })
     );
@@ -92,9 +102,8 @@ export const getLeaseTermFromLeaseTermID = async (leaseTermID) => {
     if (leaseTermID == null) {
         error.log('Bad value for leaseTermID')
     }
-    console.log(leaseTermID);
     const leaseTermData = await API.graphql(
-        graphqlOperation(getLeaseTerm, {
+        graphqlOperation(getLeaseTermWithProperty, {
             id: leaseTermID
         })
     );
@@ -173,7 +182,7 @@ export const createLeaseTermForPropertyAddress = async (address, leaseStartDate,
             createNewLeaseTerm(
                 propertyID,
                 leaseStartDate,
-                leaseEndDate
+                leaseEndDate,
             )
         )
     return leaseTermData
@@ -195,4 +204,66 @@ export const addLeaseTermToUser = async (leaseTermID, userID, userRole, status) 
         return leaseTenantData;
     }
     console.error("Unexpected user role : " + userRole)
+}
+
+export const changeLeaseUserStatus = async (leaseUser, userRole, newStatus) => {
+    if (userRole == "Landlord") {
+        return await API.graphql(
+            graphqlOperation(updateLeaseLandlord, {
+                input: {
+                    id: leaseUser.id,
+                    userID: leaseUser.userID,
+                    leaseTermID: leaseUser.leaseTermID,
+                    status: newStatus
+                }
+            })
+        )
+    }
+    if (userRole == "Tenant") {
+        console.log(leaseUser);
+        console.log({
+            id: leaseUser.id,
+            userID: leaseUser.userID,
+            leaseTermID: leaseUser.leaseTermID,
+            status: newStatus
+
+        })
+        return await API.graphql(
+            graphqlOperation(updateLeaseTenant, {
+                input: {
+                    id: leaseUser.id,
+                    userID: leaseUser.userID,
+                    leaseTermID: leaseUser.leaseTermID,
+                    status: newStatus
+                }
+            })
+        )
+    }
+    console.error("Unknown user role")
+    return null;
+}
+
+export const changeLeaseTermStatus = async (leaseTermID, newStatus) => {
+    await API.graphql(
+        graphqlOperation(getLeaseTerm, {
+            id: leaseTermID
+        })
+    ).then((leaseTermData) => {
+        const leaseTerm = leaseTermData.data.getLeaseTerm;
+        if (leaseTerm == null) {
+            console.error("No lease term found with id: " + leaseTermID);
+            return;
+        }
+        API.graphql(
+            graphqlOperation(updateLeaseTerm, {
+                input: {
+                    id: leaseTerm.id,
+                    propertyID: leaseTerm.propertyID,
+                    termStartDate: leaseTerm.termStartDate,
+                    termEndDate: leaseTerm.termEndDate,
+                    status: newStatus
+                }
+            })
+        )
+    })
 }

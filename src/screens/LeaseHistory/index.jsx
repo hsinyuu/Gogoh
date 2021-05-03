@@ -12,12 +12,16 @@ const LeaseHistory = () => {
   useEffect(() => {
     getLeaseTermHistoryFromUserID(userContext.id).then((data) => {
       console.log(data.leaseTenantHistory);
-      setLeaseTenantHistory(data.leaseTenantHistory.items);
+      if (userContext.userRole == "Tenant") {
+        setLeaseTenantHistory(data.leaseTenantHistory.items);
+      } else if (userContext.userRole == "Landlord") {
+        setLeaseTenantHistory(data.leaseLandlordHistory.items);
+      }
     });
   }, []);
 
   return (
-    <View style={{ height: "100%", backgroundColor: "white"}}>
+    <View style={{ height: "100%", backgroundColor: "white" }}>
       <FlatList
         data={leaseTenantHistory}
         renderItem={({ item }) => (

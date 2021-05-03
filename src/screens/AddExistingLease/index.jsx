@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useForm } from "utils/hooks";
 import { TextInput, Text, SafeAreaView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
 import {
   createLeaseTermForPropertyAddress,
   addLeaseTermToUser,
@@ -33,7 +34,7 @@ const AddExistingLease = ({ route }) => {
           leaseTermData.id,
           userContext.id,
           userContext.userRole,
-          "ACCEPTED"
+          'JOINED',
         );
         return leaseTermData;
       })
@@ -52,7 +53,7 @@ const AddExistingLease = ({ route }) => {
             leaseTermData.id,
             userData.items[0].id,
             userData.items[0].userRole,
-            "PENDING"
+            'INVITED'
           );
         } else {
           console.error(
