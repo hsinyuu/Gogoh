@@ -1,6 +1,6 @@
-type User @model 
-  @key(name: "userByEmail", fields: ["email"], queryField: "userByEmail")
-{
+type User
+  @model
+  @key(name: "userByEmail", fields: ["email"], queryField: "userByEmail") {
   id: ID!
   userRole: String!
   firstName: String!
@@ -8,10 +8,14 @@ type User @model
   avatarImage: String!
   phoneNumber: String!
   email: String!
+  chatUsers: [ChatUser] 
+    @connection(keyName: "byUser", fields: ["id"])
   #registerDate: AWSDateTime!
-  leaseTenantHistory: [LeaseTenant] @connection(keyName: "byUser", fields: ["id"])
-  leaseLandlordHistory: [LeaseLandlord] @connection(keyName: "byUser", fields: ["id"])
-  outstandingActions: [OutstandingAction]
+  leaseTenantHistory: [LeaseTenant]
+    @connection(keyName: "byUser", fields: ["id"])
+  leaseLandlordHistory: [LeaseLandlord]
+    @connection(keyName: "byUser", fields: ["id"])
+  events: [Event] @connection(keyName: "byUser", fields: ["id"])
 }
 
 type LeaseTenant
@@ -35,7 +39,7 @@ type LeaseLandlord
   leaseTermID: ID!
   user: User! @connection(fields: ["userID"])
   leaseTerm: LeaseTerm! @connection(fields: ["leaseTermID"])
-  status: String! # [ACCEPTED, PENDING, DECLINED]
+  status: String!
 }
 
 type LeaseTerm @model @key(name: "byProperty", fields: ["propertyID"]) {
@@ -46,59 +50,55 @@ type LeaseTerm @model @key(name: "byProperty", fields: ["propertyID"]) {
   landlords: [LeaseLandlord] @connection(keyName: "byLeaseTerm", fields: ["id"])
   termStartDate: AWSDate!
   termEndDate: AWSDate!
+  status: String!
 }
 
 type Property
   @model
-  @key(name: "propertyByAddress", fields: ["address"], queryField: "propertyByAddress") {
+  @key(
+    name: "propertyByAddress"
+    fields: ["address"]
+    queryField: "propertyByAddress"
+  ) {
   id: ID!
   address: String!
   leaseHistory: [LeaseTerm] @connection(keyName: "byProperty", fields: ["id"])
 }
 
-type OutstandingAction @model {
+type ChatUser
+  @model
+  @key(name: "byUser", fields: ["userID"])
+  @key(name: "byChatRoom", fields: ["chatRoomID"]) {
   id: ID!
+  userID: ID!
+  user: User! @connection(fields: ["userID"])
+  chatRoomID: ID!
+  chatRoom: ChatRoom! @connection(fields: ["chatRoomID"])
+}
+
+type ChatRoom @model {
+  id: ID!
+  chatUsers: [ChatUser] @connection(keyName: "byChatRoom", fields: ["id"])
+  chatMessages: [ChatMessage] @connection(keyName: "byChatRoom", fields: ["id"])
+}
+
+type ChatMessage @model 
+  @key(name: "byChatRoom" , fields: ["chatRoomID", "content"]) {
+  id: ID!
+  userID: ID!
+  content: String!
+  chatRoomID: ID!
+  chatRoom: ChatRoom!
+}
+
+type Event @model @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  userID: ID!
   title: String!
   action: String!
   startTime: AWSDateTime
   endTime: AWSDateTime
 }
-
-#type ChatRoomUser
-#  @model
-#  @key(name: "byUser", fields: ["userID", "chatRoomID"])
-#  @key(name: "byChatRoom", fields: ["chatRoomID", "userID"]) {
-#  id: ID!
-#  userID: ID!
-#  chatRoomID: ID!
-#  user: UserAccount @connection(fields: ["userID"])
-#  chatRoom: ChatRoom @connection(fields: ["chatRoomID"])
-#}
-#
-#type ChatRoom @model {
-#  id: ID!
-#  chatRoomUsers: [ChatRoomUser]
-#    @connection(keyName: "byChatRoom", fields: ["id"])
-#  #messages: [ChatMessage] @connection(keyName: "byChatRoom", fields: ["id"])
-#  #lastMessageID: ID!
-#  #lastMessage: ChatMessage @connection(fields: ["lastMessageID"])
-#}
-#
-#type ChatMessage
-#  @model
-#  @key(
-#    name: "byChatRoom"
-#    fields: ["chatRoomID", "createdAt"]
-#    queryField: "messagesByChatRoom"
-#  ) {
-#  id: ID!
-#  createdAt: String!
-#  content: String!
-#  userID: ID!
-#  chatRoomID: ID!
-#  user: UserAccount @connection(fields: ["userID"])
-#  chatRoom: ChatRoom @connection(fields: ["chatRoomID"])
-#}
 
 # type RatingReport @model {
 #}

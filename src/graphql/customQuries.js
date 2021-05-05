@@ -1,3 +1,35 @@
+export const getUserChatRooms = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      chatUsers {
+        items {
+          chatRoom {
+            id
+            chatUsers {
+              items {
+                user {
+                  id
+                  firstName
+                  lastName
+                  avatarImage
+                }
+              }
+            }
+            chatMessages {
+              items {
+                content
+                createdAt
+              }
+            }
+            createdAt
+            updatedAt
+          }
+        }
+      }
+    }
+  }
+`;
 export const getUserLeaseHistory = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -29,16 +61,20 @@ export const getUserLeaseHistory = /* GraphQL */ `
   }
 `;
 
-export const getLeaseTerm = /* GraphQL */ `
+export const getLeaseTermWithProperty = /* GraphQL */ `
   query GetLeaseTerm($id: ID!) {
     getLeaseTerm(id: $id) {
       id
+      status
       property {
         id
         address
       }
       tenants {
         items {
+          id
+          leaseTermID
+          userID
           user {
             firstName
             lastName
@@ -49,6 +85,9 @@ export const getLeaseTerm = /* GraphQL */ `
       }
       landlords {
         items {
+          id
+          leaseTermID
+          userID
           user {
             firstName
             lastName

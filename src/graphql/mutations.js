@@ -14,36 +14,17 @@ export const createUser = /* GraphQL */ `
       avatarImage
       phoneNumber
       email
+      chatUsers {
+        nextToken
+      }
       leaseTenantHistory {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       leaseLandlordHistory {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
-      outstandingActions {
-        id
-        title
-        action
-        startTime
-        endTime
-        createdAt
-        updatedAt
+      events {
+        nextToken
       }
       createdAt
       updatedAt
@@ -63,36 +44,17 @@ export const updateUser = /* GraphQL */ `
       avatarImage
       phoneNumber
       email
+      chatUsers {
+        nextToken
+      }
       leaseTenantHistory {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       leaseLandlordHistory {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
-      outstandingActions {
-        id
-        title
-        action
-        startTime
-        endTime
-        createdAt
-        updatedAt
+      events {
+        nextToken
       }
       createdAt
       updatedAt
@@ -112,36 +74,17 @@ export const deleteUser = /* GraphQL */ `
       avatarImage
       phoneNumber
       email
+      chatUsers {
+        nextToken
+      }
       leaseTenantHistory {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       leaseLandlordHistory {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
-      outstandingActions {
-        id
-        title
-        action
-        startTime
-        endTime
-        createdAt
-        updatedAt
+      events {
+        nextToken
       }
       createdAt
       updatedAt
@@ -165,41 +108,15 @@ export const createLeaseTenant = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
-        leaseTenantHistory {
-          nextToken
-        }
-        leaseLandlordHistory {
-          nextToken
-        }
-        outstandingActions {
-          id
-          title
-          action
-          startTime
-          endTime
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }
       leaseTerm {
         id
-        property {
-          id
-          address
-          createdAt
-          updatedAt
-        }
         propertyID
-        tenants {
-          nextToken
-        }
-        landlords {
-          nextToken
-        }
         termStartDate
         termEndDate
+        status
         createdAt
         updatedAt
       }
@@ -226,41 +143,15 @@ export const updateLeaseTenant = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
-        leaseTenantHistory {
-          nextToken
-        }
-        leaseLandlordHistory {
-          nextToken
-        }
-        outstandingActions {
-          id
-          title
-          action
-          startTime
-          endTime
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }
       leaseTerm {
         id
-        property {
-          id
-          address
-          createdAt
-          updatedAt
-        }
         propertyID
-        tenants {
-          nextToken
-        }
-        landlords {
-          nextToken
-        }
         termStartDate
         termEndDate
+        status
         createdAt
         updatedAt
       }
@@ -287,41 +178,15 @@ export const deleteLeaseTenant = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
-        leaseTenantHistory {
-          nextToken
-        }
-        leaseLandlordHistory {
-          nextToken
-        }
-        outstandingActions {
-          id
-          title
-          action
-          startTime
-          endTime
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }
       leaseTerm {
         id
-        property {
-          id
-          address
-          createdAt
-          updatedAt
-        }
         propertyID
-        tenants {
-          nextToken
-        }
-        landlords {
-          nextToken
-        }
         termStartDate
         termEndDate
+        status
         createdAt
         updatedAt
       }
@@ -348,41 +213,15 @@ export const createLeaseLandlord = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
-        leaseTenantHistory {
-          nextToken
-        }
-        leaseLandlordHistory {
-          nextToken
-        }
-        outstandingActions {
-          id
-          title
-          action
-          startTime
-          endTime
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }
       leaseTerm {
         id
-        property {
-          id
-          address
-          createdAt
-          updatedAt
-        }
         propertyID
-        tenants {
-          nextToken
-        }
-        landlords {
-          nextToken
-        }
         termStartDate
         termEndDate
+        status
         createdAt
         updatedAt
       }
@@ -409,41 +248,15 @@ export const updateLeaseLandlord = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
-        leaseTenantHistory {
-          nextToken
-        }
-        leaseLandlordHistory {
-          nextToken
-        }
-        outstandingActions {
-          id
-          title
-          action
-          startTime
-          endTime
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }
       leaseTerm {
         id
-        property {
-          id
-          address
-          createdAt
-          updatedAt
-        }
         propertyID
-        tenants {
-          nextToken
-        }
-        landlords {
-          nextToken
-        }
         termStartDate
         termEndDate
+        status
         createdAt
         updatedAt
       }
@@ -470,41 +283,15 @@ export const deleteLeaseLandlord = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
-        leaseTenantHistory {
-          nextToken
-        }
-        leaseLandlordHistory {
-          nextToken
-        }
-        outstandingActions {
-          id
-          title
-          action
-          startTime
-          endTime
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }
       leaseTerm {
         id
-        property {
-          id
-          address
-          createdAt
-          updatedAt
-        }
         propertyID
-        tenants {
-          nextToken
-        }
-        landlords {
-          nextToken
-        }
         termStartDate
         termEndDate
+        status
         createdAt
         updatedAt
       }
@@ -524,37 +311,19 @@ export const createLeaseTerm = /* GraphQL */ `
       property {
         id
         address
-        leaseHistory {
-          nextToken
-        }
         createdAt
         updatedAt
       }
       propertyID
       tenants {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       landlords {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       termStartDate
       termEndDate
+      status
       createdAt
       updatedAt
     }
@@ -570,37 +339,19 @@ export const updateLeaseTerm = /* GraphQL */ `
       property {
         id
         address
-        leaseHistory {
-          nextToken
-        }
         createdAt
         updatedAt
       }
       propertyID
       tenants {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       landlords {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       termStartDate
       termEndDate
+      status
       createdAt
       updatedAt
     }
@@ -616,37 +367,19 @@ export const deleteLeaseTerm = /* GraphQL */ `
       property {
         id
         address
-        leaseHistory {
-          nextToken
-        }
         createdAt
         updatedAt
       }
       propertyID
       tenants {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       landlords {
-        items {
-          id
-          userID
-          leaseTermID
-          status
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       termStartDate
       termEndDate
+      status
       createdAt
       updatedAt
     }
@@ -661,14 +394,6 @@ export const createProperty = /* GraphQL */ `
       id
       address
       leaseHistory {
-        items {
-          id
-          propertyID
-          termStartDate
-          termEndDate
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -685,14 +410,6 @@ export const updateProperty = /* GraphQL */ `
       id
       address
       leaseHistory {
-        items {
-          id
-          propertyID
-          termStartDate
-          termEndDate
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -709,14 +426,6 @@ export const deleteProperty = /* GraphQL */ `
       id
       address
       leaseHistory {
-        items {
-          id
-          propertyID
-          termStartDate
-          termEndDate
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -724,13 +433,218 @@ export const deleteProperty = /* GraphQL */ `
     }
   }
 `;
-export const createOutstandingAction = /* GraphQL */ `
-  mutation CreateOutstandingAction(
-    $input: CreateOutstandingActionInput!
-    $condition: ModelOutstandingActionConditionInput
+export const createChatUser = /* GraphQL */ `
+  mutation CreateChatUser(
+    $input: CreateChatUserInput!
+    $condition: ModelChatUserConditionInput
   ) {
-    createOutstandingAction(input: $input, condition: $condition) {
+    createChatUser(input: $input, condition: $condition) {
       id
+      userID
+      user {
+        id
+        userRole
+        firstName
+        lastName
+        avatarImage
+        phoneNumber
+        email
+        createdAt
+        updatedAt
+      }
+      chatRoomID
+      chatRoom {
+        id
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateChatUser = /* GraphQL */ `
+  mutation UpdateChatUser(
+    $input: UpdateChatUserInput!
+    $condition: ModelChatUserConditionInput
+  ) {
+    updateChatUser(input: $input, condition: $condition) {
+      id
+      userID
+      user {
+        id
+        userRole
+        firstName
+        lastName
+        avatarImage
+        phoneNumber
+        email
+        createdAt
+        updatedAt
+      }
+      chatRoomID
+      chatRoom {
+        id
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteChatUser = /* GraphQL */ `
+  mutation DeleteChatUser(
+    $input: DeleteChatUserInput!
+    $condition: ModelChatUserConditionInput
+  ) {
+    deleteChatUser(input: $input, condition: $condition) {
+      id
+      userID
+      user {
+        id
+        userRole
+        firstName
+        lastName
+        avatarImage
+        phoneNumber
+        email
+        createdAt
+        updatedAt
+      }
+      chatRoomID
+      chatRoom {
+        id
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createChatRoom = /* GraphQL */ `
+  mutation CreateChatRoom(
+    $input: CreateChatRoomInput!
+    $condition: ModelChatRoomConditionInput
+  ) {
+    createChatRoom(input: $input, condition: $condition) {
+      id
+      chatUsers {
+        nextToken
+      }
+      chatMessages {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateChatRoom = /* GraphQL */ `
+  mutation UpdateChatRoom(
+    $input: UpdateChatRoomInput!
+    $condition: ModelChatRoomConditionInput
+  ) {
+    updateChatRoom(input: $input, condition: $condition) {
+      id
+      chatUsers {
+        nextToken
+      }
+      chatMessages {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteChatRoom = /* GraphQL */ `
+  mutation DeleteChatRoom(
+    $input: DeleteChatRoomInput!
+    $condition: ModelChatRoomConditionInput
+  ) {
+    deleteChatRoom(input: $input, condition: $condition) {
+      id
+      chatUsers {
+        nextToken
+      }
+      chatMessages {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createChatMessage = /* GraphQL */ `
+  mutation CreateChatMessage(
+    $input: CreateChatMessageInput!
+    $condition: ModelChatMessageConditionInput
+  ) {
+    createChatMessage(input: $input, condition: $condition) {
+      id
+      userID
+      content
+      chatRoomID
+      chatRoom {
+        id
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateChatMessage = /* GraphQL */ `
+  mutation UpdateChatMessage(
+    $input: UpdateChatMessageInput!
+    $condition: ModelChatMessageConditionInput
+  ) {
+    updateChatMessage(input: $input, condition: $condition) {
+      id
+      userID
+      content
+      chatRoomID
+      chatRoom {
+        id
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteChatMessage = /* GraphQL */ `
+  mutation DeleteChatMessage(
+    $input: DeleteChatMessageInput!
+    $condition: ModelChatMessageConditionInput
+  ) {
+    deleteChatMessage(input: $input, condition: $condition) {
+      id
+      userID
+      content
+      chatRoomID
+      chatRoom {
+        id
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createEvent = /* GraphQL */ `
+  mutation CreateEvent(
+    $input: CreateEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    createEvent(input: $input, condition: $condition) {
+      id
+      userID
       title
       action
       startTime
@@ -740,13 +654,14 @@ export const createOutstandingAction = /* GraphQL */ `
     }
   }
 `;
-export const updateOutstandingAction = /* GraphQL */ `
-  mutation UpdateOutstandingAction(
-    $input: UpdateOutstandingActionInput!
-    $condition: ModelOutstandingActionConditionInput
+export const updateEvent = /* GraphQL */ `
+  mutation UpdateEvent(
+    $input: UpdateEventInput!
+    $condition: ModelEventConditionInput
   ) {
-    updateOutstandingAction(input: $input, condition: $condition) {
+    updateEvent(input: $input, condition: $condition) {
       id
+      userID
       title
       action
       startTime
@@ -756,13 +671,14 @@ export const updateOutstandingAction = /* GraphQL */ `
     }
   }
 `;
-export const deleteOutstandingAction = /* GraphQL */ `
-  mutation DeleteOutstandingAction(
-    $input: DeleteOutstandingActionInput!
-    $condition: ModelOutstandingActionConditionInput
+export const deleteEvent = /* GraphQL */ `
+  mutation DeleteEvent(
+    $input: DeleteEventInput!
+    $condition: ModelEventConditionInput
   ) {
-    deleteOutstandingAction(input: $input, condition: $condition) {
+    deleteEvent(input: $input, condition: $condition) {
       id
+      userID
       title
       action
       startTime

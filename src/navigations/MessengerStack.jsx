@@ -1,6 +1,6 @@
 import React from "react";
 import Messenger from "screens/Messenger";
-import MessengerRoom from "screens/MessengerRoom";
+import ChatRoom from "screens/ChatRoom";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useRoute } from "@react-navigation/native";
 import { Text, View } from "react-native";
@@ -47,8 +47,8 @@ const MessengerStack = () => {
         }}
       />
       <Stack.Screen
-        name="MessengerRoom"
-        component={MessengerRoom}
+        name="ChatRoom"
+        component={ChatRoom}
         options={({ route }) => ({
           title: route.params.name,
         })}
