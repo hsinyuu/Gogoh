@@ -11,7 +11,6 @@ const Messenger = () => {
   const userContext = React.useContext(UserContext);
   const [chatRooms, setChatRooms] = useState(null);
   useEffect(() => {
-    console.log("asdf");
     getChatRoomsFromUserID(userContext.id).then((data) => {
       setChatRooms(data);
     });

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { UserContext } from "../../context/UserContext";
 import {
   TouchableOpacity,
   TextInput,
@@ -8,18 +9,23 @@ import {
   FlatList,
 } from "react-native";
 import ChatMessageBox from "molecules/ChatMessageBox";
-import { SafeAreaView } from "react-native-safe-area-context";
 import {
+  subscribeToChatRoom,
+  createChatMessageInChatRoom,
   getChatRoomMessagesFromChatRoomID,
   getChatRoomUsernamesAndAvatarFromChatRoomID,
 } from "services/chat";
 
 const ChatRoom = ({ route }) => {
+  const userContext = React.useContext(UserContext);
+  const chatRoomID = route.params.id;
+  const [inputMessage, setInputMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState({});
   const [userIDToUserInfo, setUserIDToUserInfo] = useState({});
+
   useEffect(() => {
-    console.log(route.params.id);
-    getChatRoomUsernamesAndAvatarFromChatRoomID(route.params.id).then(
+    getChatRoomUsernamesAndAvatarFromChatRoomID(chatRoomID).then(
       (chatUsersData) => {
         chatUsersData.forEach((data) => {
           userIDToUserInfo[data.id] = {
@@ -36,6 +42,24 @@ const ChatRoom = ({ route }) => {
       setMessages(data.items)
     );
   }, []);
+  useEffect(() => {
+    const sub = subscribeToChatRoom(chatRoomID, (newMessage) => {setNewMessage(newMessage)});
+    return () => {
+      sub.unsubscribe();
+    }
+  }, [])
+  useEffect(() => {
+    setMessages([...messages, newMessage]);
+  }, [newMessage])
+
+  const sendMessage = () => {
+    setInputMessage("");
+    createChatMessageInChatRoom(
+      chatRoomID,
+      userContext.id,
+      inputMessage
+    ).then((data) => console.log(data));
+  };
 
   return (
     <View style={styles.container}>
@@ -51,8 +75,13 @@ const ChatRoom = ({ route }) => {
       <KeyboardAvoidingView keyboardVerticalOffset={100} behavior="padding">
         <View style={styles.footer}>
           <View style={styles.inputContainer}>
-            <TextInput style={styles.input} placeholder="Type something nice" />
-            <TouchableOpacity>
+            <TextInput
+              value={inputMessage}
+              onChangeText={(text) => setInputMessage(text)}
+              style={styles.input}
+              placeholder="Type something nice"
+            />
+            <TouchableOpacity onPress={sendMessage}>
               <Text style={styles.send}>Send</Text>
             </TouchableOpacity>
           </View>

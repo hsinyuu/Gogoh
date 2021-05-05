@@ -12,6 +12,31 @@ import {
     createChatMessage,
     createChatUser
 } from "../graphql/mutations";
+import {
+    onCreateChatMessageByChatRoomID
+} from "../graphql/subscriptions";
+
+export const subscribeToChatRoom = (chatRoomID, callback) => {
+    return API.graphql(
+        graphqlOperation(onCreateChatMessageByChatRoomID, {
+            chatRoomID
+        })).subscribe({
+            next: (data) => callback(data.value.data.onCreateChatMessageByChatRoomID)
+    })
+}
+
+export const createChatMessageInChatRoom = async (chatRoomID, userID, content) => {
+    console.log(chatRoomID, userID, content)
+    return await API.graphql(
+        graphqlOperation(createChatMessage, {
+            input: {
+                chatRoomID,
+                userID,
+                content
+            }
+        })
+    ).catch((error) => console.error(error))
+}
 
 export const getChatRoomUsernamesAndAvatarFromChatRoomID = async (chatRoomID) => {
     return await API.graphql(

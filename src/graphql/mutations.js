@@ -587,11 +587,6 @@ export const createChatMessage = /* GraphQL */ `
       userID
       content
       chatRoomID
-      chatRoom {
-        id
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -607,11 +602,6 @@ export const updateChatMessage = /* GraphQL */ `
       userID
       content
       chatRoomID
-      chatRoom {
-        id
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -627,11 +617,6 @@ export const deleteChatMessage = /* GraphQL */ `
       userID
       content
       chatRoomID
-      chatRoom {
-        id
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }

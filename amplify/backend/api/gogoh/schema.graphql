@@ -8,8 +8,7 @@ type User
   avatarImage: String!
   phoneNumber: String!
   email: String!
-  chatUsers: [ChatUser] 
-    @connection(keyName: "byUser", fields: ["id"])
+  chatUsers: [ChatUser] @connection(keyName: "byUser", fields: ["id"])
   #registerDate: AWSDateTime!
   leaseTenantHistory: [LeaseTenant]
     @connection(keyName: "byUser", fields: ["id"])
@@ -82,13 +81,13 @@ type ChatRoom @model {
   chatMessages: [ChatMessage] @connection(keyName: "byChatRoom", fields: ["id"])
 }
 
-type ChatMessage @model 
-  @key(name: "byChatRoom" , fields: ["chatRoomID", "content"]) {
+type ChatMessage
+  @model
+  @key(name: "byChatRoom", fields: ["chatRoomID", "content"]) {
   id: ID!
   userID: ID!
   content: String!
   chatRoomID: ID!
-  chatRoom: ChatRoom!
 }
 
 type Event @model @key(name: "byUser", fields: ["userID"]) {
@@ -98,6 +97,11 @@ type Event @model @key(name: "byUser", fields: ["userID"]) {
   action: String!
   startTime: AWSDateTime
   endTime: AWSDateTime
+}
+
+type Subscription {
+  onCreateChatMessageByChatRoomID(chatRoomID: ID!): ChatMessage
+    @aws_subscribe(mutations: ["createChatMessage"])
 }
 
 # type RatingReport @model {
