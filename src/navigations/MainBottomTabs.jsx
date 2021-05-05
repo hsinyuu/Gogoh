@@ -1,18 +1,26 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import MessengerStack from "navigations/MessengerStack";
 import ProfileStack from "navigations/ProfileStack";
 import HomeStack from "navigations/HomeStack";
-import Explore from 'screens/Explore';
+import Explore from "screens/Explore";
+
 const Tab = createBottomTabNavigator();
+
+const setTabBarVisible = (route) => {
+  const routeName = getFocusedRouteNameFromRoute(route);
+  const hideOnScreens = ["ChatRoom"];
+  if (hideOnScreens.indexOf(routeName) > -1) return false;
+  return true;
+};
+
 const MainBottomTabs = () => {
   return (
-    <Tab.Navigator
-      tabBarOptions={{ activeTintColor: "#f15454"}}
-    >
+    <Tab.Navigator tabBarOptions={{ activeTintColor: "#f15454" }}>
       <Tab.Screen
         name="Home"
         component={HomeStack}
@@ -34,11 +42,12 @@ const MainBottomTabs = () => {
       <Tab.Screen
         name="Messenger"
         component={MessengerStack}
-        options={{
-          tabBarIcon: ({ color }) => (
+        options={({ route, color }) => ({
+          tabBarVisible: setTabBarVisible(route),
+          tabBarIcon: () => (
             <Feather name="message-square" size={24} color={color} />
           ),
-        }}
+        })}
       />
       <Tab.Screen
         name="Profile"
@@ -55,5 +64,5 @@ const MainBottomTabs = () => {
       />
     </Tab.Navigator>
   );
-}
-export default MainBottomTabs
+};
+export default MainBottomTabs;
