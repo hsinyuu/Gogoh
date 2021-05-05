@@ -1,3 +1,39 @@
+export const getChatRoomMessages = /* GraphQL */ `
+  query GetChatRoom($id: ID!) {
+    getChatRoom(id: $id) {
+      id
+      chatMessages {
+        items {
+          id
+          userID
+          content
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+
+export const getChatRoomUsernamesAndAvatar = /* GraphQL */ `
+  query GetChatRoom($id: ID!) {
+    getChatRoom(id: $id) {
+      id
+      chatUsers {
+        items {
+          user {
+            id
+            firstName
+            lastName
+            avatarImage
+          }
+        }
+      }
+    }
+  }
+`;
+
+
 export const getUserChatRooms = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {

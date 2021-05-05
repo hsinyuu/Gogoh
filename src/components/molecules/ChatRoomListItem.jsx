@@ -10,7 +10,7 @@ const ChatRoomListItem = (props) => {
   const navigation = useNavigation();
   const onPress = () => {
     console.log(chatRoomID)
-    navigation.navigate("ChatRoom", { id, name: chatRoomID });
+    navigation.navigate("ChatRoom", { id: chatRoomID, name: chatRoomID });
   }
   //return <Text>{`${updatedAt} ${chatUsers[0].user.firstName}`}</Text>;
   return (

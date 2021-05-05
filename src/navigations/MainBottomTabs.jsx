@@ -42,9 +42,9 @@ const MainBottomTabs = () => {
       <Tab.Screen
         name="Messenger"
         component={MessengerStack}
-        options={({ route, color }) => ({
+        options={({ route }) => ({
           tabBarVisible: setTabBarVisible(route),
-          tabBarIcon: () => (
+          tabBarIcon: ({ color }) => (
             <Feather name="message-square" size={24} color={color} />
           ),
         })}
