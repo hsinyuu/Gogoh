@@ -79,18 +79,17 @@ type ChatRoom @model {
   id: ID!
   chatUsers: [ChatUser] @connection(keyName: "byChatRoom", fields: ["id"])
   chatMessages: [ChatMessage] @connection(keyName: "byChatRoom", fields: ["id"])
+  lastMessage: ChatMessage
 }
 
 type ChatMessage
   @model
-  @key(name: "messageByTime", fields: ["chatRoomID", "createdAt"], queryField: "messageByTime")
-  @key(name: "byChatRoom", fields: ["chatRoomID", "content"]) {
+  @key(name: "byChatRoom", fields: ["chatRoomID", "createdAt"], queryField: "messagesbyChatRoom") {
   id: ID!
   userID: ID!
   content: String!
   chatRoomID: ID!
   createdAt: String! # Amplify fills this in
-
 }
 
 type Event @model @key(name: "byUser", fields: ["userID"]) {

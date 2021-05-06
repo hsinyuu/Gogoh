@@ -1,5 +1,34 @@
 
 export const getChatRoomMessagesSortedByTime = /* GraphQL */ `
+  query MessagesbyChatRoom(
+    $chatRoomID: ID
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelChatMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    messagesbyChatRoom(
+      chatRoomID: $chatRoomID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        content
+        chatRoomID
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
+/*
   query MessageByTime(
     $chatRoomID: ID
     $createdAt: ModelStringKeyConditionInput
@@ -27,6 +56,7 @@ export const getChatRoomMessagesSortedByTime = /* GraphQL */ `
     }
   }
 `;
+*/
 
 
 export const getChatRoomMessages = /* GraphQL */ `
