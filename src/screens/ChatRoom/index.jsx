@@ -12,8 +12,10 @@ import ChatMessageBox from "molecules/ChatMessageBox";
 import {
   subscribeToChatRoom,
   createChatMessageInChatRoom,
+  deleteChatMessageWithID,
   getChatRoomMessagesFromChatRoomID,
   getChatRoomUsernamesAndAvatarFromChatRoomID,
+  getSortedChatRoomMessagesFromChatRoomID,
 } from "services/chat";
 
 const ChatRoom = ({ route }) => {
@@ -38,21 +40,30 @@ const ChatRoom = ({ route }) => {
         console.log(userIDToUserInfo);
       }
     );
-    getChatRoomMessagesFromChatRoomID(route.params.id).then((data) =>
-      setMessages(data.items)
-    );
+    // getChatRoomMessagesFromChatRoomID(route.params.id).then((data) =>
+    getSortedChatRoomMessagesFromChatRoomID(route.params.id).then((data) => {
+      console.log("ret", data);
+      setMessages(data);
+    });
   }, []);
+
   useEffect(() => {
-    const sub = subscribeToChatRoom(chatRoomID, (newMessage) => {setNewMessage(newMessage)});
+    const sub = subscribeToChatRoom(chatRoomID, (newMessage) => {
+      setNewMessage(newMessage);
+    });
     return () => {
       sub.unsubscribe();
-    }
-  }, [])
+    };
+  }, []);
+
   useEffect(() => {
-    setMessages([...messages, newMessage]);
-  }, [newMessage])
+    setMessages([newMessage, ...messages]);
+  }, [newMessage]);
 
   const sendMessage = () => {
+    if (inputMessage == "") {
+      return;
+    }
     setInputMessage("");
     createChatMessageInChatRoom(
       chatRoomID,
@@ -61,16 +72,29 @@ const ChatRoom = ({ route }) => {
     ).then((data) => console.log(data));
   };
 
+  const removeAllMessages = () => {
+    messages.forEach((msg) => {
+      console.log("delete", msg);
+      deleteChatMessageWithID(msg.id).then((d) => console.log(d));
+    });
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
+        inverted
         data={messages}
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: "flex-end",
+        }}
         renderItem={({ item }) => (
           <ChatMessageBox
             username={userIDToUserInfo[item.userID]}
             message={item.content}
           />
         )}
+        keyExtractor={(item) => item.id}
       />
       <KeyboardAvoidingView keyboardVerticalOffset={100} behavior="padding">
         <View style={styles.footer}>
@@ -83,6 +107,9 @@ const ChatRoom = ({ route }) => {
             />
             <TouchableOpacity onPress={sendMessage}>
               <Text style={styles.send}>Send</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={removeAllMessages}>
+              <Text style={styles.send}>Clean</Text>
             </TouchableOpacity>
           </View>
         </View>

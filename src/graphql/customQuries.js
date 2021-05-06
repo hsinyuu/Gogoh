@@ -1,3 +1,34 @@
+
+export const getChatRoomMessagesSortedByTime = /* GraphQL */ `
+  query MessageByTime(
+    $chatRoomID: ID
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelChatMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    messageByTime(
+      chatRoomID: $chatRoomID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        content
+        chatRoomID
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
+
 export const getChatRoomMessages = /* GraphQL */ `
   query GetChatRoom($id: ID!) {
     getChatRoom(id: $id) {

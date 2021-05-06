@@ -3,11 +3,13 @@ import {
     graphqlOperation
 } from "aws-amplify";
 import {
+    getChatRoomMessagesSortedByTime,
     getUserChatRooms,
     getChatRoomMessages,
     getChatRoomUsernamesAndAvatar
 } from "../graphql/customQuries";
 import {
+    deleteChatMessage,
     createChatRoom,
     createChatMessage,
     createChatUser
@@ -21,8 +23,19 @@ export const subscribeToChatRoom = (chatRoomID, callback) => {
         graphqlOperation(onCreateChatMessageByChatRoomID, {
             chatRoomID
         })).subscribe({
-            next: (data) => callback(data.value.data.onCreateChatMessageByChatRoomID)
+        next: (data) => callback(data.value.data.onCreateChatMessageByChatRoomID)
     })
+}
+
+export const deleteChatMessageWithID = async (messageID) => {
+    return await API.graphql(
+            graphqlOperation(deleteChatMessage, {
+                input: {
+                    id: messageID
+                }
+            })
+        )
+        .catch(error => console.error(error));
 }
 
 export const createChatMessageInChatRoom = async (chatRoomID, userID, content) => {
@@ -56,6 +69,17 @@ export const getChatRoomUsernamesAndAvatarFromChatRoomID = async (chatRoomID) =>
         })
         return ret;
     })
+}
+
+export const getSortedChatRoomMessagesFromChatRoomID = async (chatRoomID) => {
+    const chatRoomData = await API.graphql(
+        graphqlOperation(getChatRoomMessagesSortedByTime, {
+            chatRoomID,
+            sortDirection: 'DESC',
+        })
+    ).catch((error) => console.error(error))
+    console.log('get', chatRoomData)
+    return chatRoomData.data.messageByTime.items;
 }
 
 export const getChatRoomMessagesFromChatRoomID = async (chatRoomID) => {

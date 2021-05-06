@@ -310,11 +310,6 @@ export const getChatMessage = /* GraphQL */ `
       userID
       content
       chatRoomID
-      chatRoom {
-        id
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -422,6 +417,35 @@ export const propertyByAddress = /* GraphQL */ `
       items {
         id
         address
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const messageByTime = /* GraphQL */ `
+  query MessageByTime(
+    $chatRoomID: ID
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelChatMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    messageByTime(
+      chatRoomID: $chatRoomID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        content
+        chatRoomID
         createdAt
         updatedAt
       }
