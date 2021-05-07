@@ -17,6 +17,8 @@ import {
   getChatRoomUsernamesAndAvatarFromChatRoomID,
   getSortedChatRoomMessagesFromChatRoomID,
 } from "services/chat";
+import RightAlignedContainer from "atoms/RightAlignedContainer";
+import AvatarImage from "atoms/AvatarImage";
 
 const ChatRoom = ({ route }) => {
   const userContext = React.useContext(UserContext);
@@ -89,10 +91,12 @@ const ChatRoom = ({ route }) => {
           justifyContent: "flex-end",
         }}
         renderItem={({ item }) => (
-          <ChatMessageBox
-            username={userIDToUserInfo[item.userID]}
-            message={item.content}
-          />
+          <RightAlignedContainer>
+            <Text>{userIDToUserInfo[item.userID].firstName}</Text>
+            <ChatMessageBox
+              message={item.content}
+            />
+          </RightAlignedContainer>
         )}
         keyExtractor={(item) => item.id}
       />

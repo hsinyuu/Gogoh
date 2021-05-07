@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 
 const ChatMessageBox = (props) => {
-  const { username, message } = props;
+  const { message } = props;
   return (
     <View style={styles.messageBox}>
       <Text style={styles.messageText}>{message}</Text>
