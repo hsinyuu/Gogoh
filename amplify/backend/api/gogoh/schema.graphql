@@ -84,7 +84,6 @@ type ChatRoom @model {
 
 type ChatMessage
   @model
-  #@key(name: "messageByTime", fields: ["chatRoomID", "createdAt"], queryField: "messageByTime")
   @key(name: "byChatRoom", fields: ["chatRoomID", "content"], queryField: "messageByChatRoom") {
   id: ID!
   userID: ID!

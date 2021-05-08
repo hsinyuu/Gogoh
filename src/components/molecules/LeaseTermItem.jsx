@@ -1,26 +1,26 @@
 import React from "react";
 import moment from "moment";
 import { TouchableOpacity, Text } from "react-native";
+import TouchableContainer from "atoms/TouchableContainer";
 import { useNavigation } from "@react-navigation/native";
 
 const LeaseTermItem = (props) => {
   const { propertyAddress, termStartDate, termEndDate, leaseTermID } = props;
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => {
-        navigation.navigate("Lease", {
-          leaseTermID: leaseTermID,
-        });
-      }}
+    <TouchableContainer
+      style={{ height: 100 }}
+      shadowed={true}
+      onPress={() => navigation.navigate("Lease", { leaseTermID: leaseTermID })}
     >
       <Text style={styles.header}>{propertyAddress}</Text>
-      <Text style={styles.subheader}>{`${moment(termStartDate).format(
-        "MMM YYYY"
-      )} - ${moment(termEndDate).format("MMM YYYY")}`}</Text>
+      <Text style={styles.subheader}>
+        {`${moment(termStartDate).format("MMM YYYY")} - ${moment(
+          termEndDate
+        ).format("MMM YYYY")}`}
+      </Text>
       <Text></Text>
-    </TouchableOpacity>
+    </TouchableContainer>
   );
 };
 
