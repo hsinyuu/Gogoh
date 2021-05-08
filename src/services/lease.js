@@ -33,10 +33,6 @@ export const fetchOrCreateProperty = async (propertyAddress) => {
         })
     );
     if (existingPropertyWithSameAddress.data.propertyByAddress.items.length) {
-        console.log("new property");
-        console.log(
-            existingPropertyWithSameAddress.data.propertyByAddress.items
-        );
         console.log("Property exists");
         return existingPropertyWithSameAddress.data.propertyByAddress.items[0];
     } else {
@@ -57,7 +53,6 @@ export const createNewLeaseTerm = async (propertyID, termStartDate, termEndDate)
         STARTED: "STARTED",
         ENDED: "ENDED"
     }
-    console.log(propertyID, termStartDate, termEndDate, LeaseTermStatus.AMEND);
     const newLeaseTermData = await API.graphql(
         graphqlOperation(createLeaseTerm, {
             input: {
@@ -72,7 +67,6 @@ export const createNewLeaseTerm = async (propertyID, termStartDate, termEndDate)
 }
 
 export const createLeaseTenantForLeaseTerm = async (userID, leaseTermID, initialStatus) => {
-    console.log(userID, leaseTermID);
     const newLeaseTenantData = await API.graphql(
         graphqlOperation(createLeaseTenant, {
             input: {
@@ -163,7 +157,6 @@ export const listAllLeaseTerms = async () => {
 }
 
 export const deleteLeaseTermFromID = async (leaseTermID) => {
-    console.log('delete ', leaseTermID)
     const data = await API.graphql(
         graphqlOperation(deleteLeaseTerm, {
             input: {
@@ -175,7 +168,6 @@ export const deleteLeaseTermFromID = async (leaseTermID) => {
 }
 
 export const createLeaseTermForPropertyAddress = async (address, leaseStartDate, leaseEndDate) => {
-    console.log(address, leaseStartDate, leaseEndDate)
     let leaseTermData = await fetchOrCreateProperty(address)
         .then((propertyData) => propertyData.id)
         .then((propertyID) =>
@@ -220,14 +212,6 @@ export const changeLeaseUserStatus = async (leaseUser, userRole, newStatus) => {
         )
     }
     if (userRole == "Tenant") {
-        console.log(leaseUser);
-        console.log({
-            id: leaseUser.id,
-            userID: leaseUser.userID,
-            leaseTermID: leaseUser.leaseTermID,
-            status: newStatus
-
-        })
         return await API.graphql(
             graphqlOperation(updateLeaseTenant, {
                 input: {

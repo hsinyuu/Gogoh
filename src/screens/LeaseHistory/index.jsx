@@ -8,10 +8,9 @@ import LeaseTermItem from "molecules/LeaseTermItem";
 const LeaseHistory = () => {
   const userContext = React.useContext(UserContext);
   const [leaseTenantHistory, setLeaseTenantHistory] = useState([]);
-  const [leaseLandlordHistory, setLeaseLandlordHistory] = useState([]);
+  const [leaseLandlordHistory, setLeaseLandlordHistory] = useState([]); // May want support for landlord and tenant mix
   useEffect(() => {
     getLeaseTermHistoryFromUserID(userContext.id).then((data) => {
-      console.log(data.leaseTenantHistory);
       if (userContext.userRole == "Tenant") {
         setLeaseTenantHistory(data.leaseTenantHistory.items);
       } else if (userContext.userRole == "Landlord") {

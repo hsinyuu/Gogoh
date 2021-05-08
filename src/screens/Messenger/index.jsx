@@ -21,9 +21,6 @@ const Messenger = () => {
         <Text>loading</Text>
       </SafeAreaView>
     );
-  else {
-    console.log("asdf", chatRooms);
-  }
   return (
     <View style={styles.container}>
       <FlatList

@@ -37,7 +37,7 @@ const Home = () => {
             callback={() => {
               listAllLeaseTenants().then(({ items }) => {
                 items.forEach((itm) => {
-                  console.log(itm);
+                  console.log('delete', itm);
                   deleteLeaseTenantFromID(itm.id);
                 });
               });
@@ -50,7 +50,7 @@ const Home = () => {
             callback={() => {
               listAllLeaseLandlords().then(({ items }) => {
                 items.forEach((itm) => {
-                  console.log(itm);
+                  console.log('delete', itm);
                   deleteLeaseLandlordFromID(itm.id);
                 });
               });

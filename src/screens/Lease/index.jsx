@@ -150,7 +150,6 @@ const Lease = ({ route }) => {
         if (leaseTermData == null) {
           console.error("No lease term found from id");
         }
-        console.log("data", leaseTermData);
         setLeaseTerm(leaseTermData);
         setLeaseUser(
           getLeaseUserInLeaseTermFromUserContext(userContext, leaseTermData)

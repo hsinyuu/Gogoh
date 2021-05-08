@@ -39,7 +39,6 @@ export const deleteChatMessageWithID = async (messageID) => {
 }
 
 export const createChatMessageInChatRoom = async (chatRoomID, userID, content) => {
-    console.log(chatRoomID, userID, content)
     return await API.graphql(
         graphqlOperation(createChatMessage, {
             input: {
@@ -78,7 +77,6 @@ export const getSortedChatRoomMessagesFromChatRoomID = async (chatRoomID) => {
             sortDirection: 'DESC',
         })
     ).catch((error) => console.error(error))
-    console.log('get', chatRoomData)
     return chatRoomData.data.messageByChatRoom.items;
 }
 
