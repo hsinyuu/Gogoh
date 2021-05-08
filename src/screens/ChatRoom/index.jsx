@@ -18,6 +18,7 @@ import {
   getSortedChatRoomMessagesFromChatRoomID,
 } from "services/chat";
 import RightAlignedContainer from "atoms/RightAlignedContainer";
+import LeftAlignedContainer from "atoms/LeftAlignedContainer";
 import AvatarImage from "atoms/AvatarImage";
 
 const ChatRoom = ({ route }) => {
@@ -27,10 +28,11 @@ const ChatRoom = ({ route }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState({});
   const [userIDToUserInfo, setUserIDToUserInfo] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getChatRoomUsernamesAndAvatarFromChatRoomID(chatRoomID).then(
-      (chatUsersData) => {
+    getChatRoomUsernamesAndAvatarFromChatRoomID(chatRoomID)
+      .then((chatUsersData) => {
         chatUsersData.forEach((data) => {
           userIDToUserInfo[data.id] = {
             firstName: data.firstName,
@@ -39,15 +41,22 @@ const ChatRoom = ({ route }) => {
           };
         });
         setUserIDToUserInfo(userIDToUserInfo);
-        console.log(userIDToUserInfo);
-      }
-    );
+        console.log("loaded user", userIDToUserInfo);
+      })
+      .finally(() => setLoading(false));
     // getChatRoomMessagesFromChatRoomID(route.params.id).then((data) =>
     getSortedChatRoomMessagesFromChatRoomID(route.params.id).then((data) => {
       console.log("ret", data);
       setMessages(data);
     });
   }, []);
+
+  useEffect(() => {
+    messages.forEach((msg) => {
+      console.log("p", msg);
+      console.log("t", userIDToUserInfo[msg.userID]);
+    });
+  }, [messages]);
 
   useEffect(() => {
     const sub = subscribeToChatRoom(chatRoomID, (newMessage) => {
@@ -81,6 +90,37 @@ const ChatRoom = ({ route }) => {
     });
   };
 
+  const renderChatMessageBox = ({item}) => {
+    if (item.userID == userContext.id) {
+      return (
+        <RightAlignedContainer>
+          <ChatMessageBox message={item.content} alignment={"right"}/>
+          {userIDToUserInfo[item.userID] && (
+            <AvatarImage
+              size={30}
+              uri={userIDToUserInfo[item.userID].avatarImage}
+            />
+          )}
+        </RightAlignedContainer>
+      );
+    } else {
+      return (
+        <LeftAlignedContainer>
+          {userIDToUserInfo[item.userID] && (
+            <AvatarImage
+              size={30}
+              uri={userIDToUserInfo[item.userID].avatarImage}
+            />
+          )}
+          <ChatMessageBox message={item.content} alignment={"left"}/>
+        </LeftAlignedContainer>
+      );
+    }
+  };
+
+  if (loading) {
+    return <Text>Loading</Text>;
+  }
   return (
     <View style={styles.container}>
       <FlatList
@@ -90,14 +130,7 @@ const ChatRoom = ({ route }) => {
           flexGrow: 1,
           justifyContent: "flex-end",
         }}
-        renderItem={({ item }) => (
-          <RightAlignedContainer>
-            <Text>{userIDToUserInfo[item.userID].firstName}</Text>
-            <ChatMessageBox
-              message={item.content}
-            />
-          </RightAlignedContainer>
-        )}
+        renderItem={renderChatMessageBox}
         keyExtractor={(item) => item.id}
       />
       <KeyboardAvoidingView keyboardVerticalOffset={100} behavior="padding">

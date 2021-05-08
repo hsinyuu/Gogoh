@@ -1,16 +1,16 @@
 
 export const getChatRoomMessagesSortedByTime = /* GraphQL */ `
-  query MessagesbyChatRoom(
+  query MessageByChatRoom(
     $chatRoomID: ID
-    $createdAt: ModelStringKeyConditionInput
+    $content: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelChatMessageFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    messagesbyChatRoom(
+    messageByChatRoom(
       chatRoomID: $chatRoomID
-      createdAt: $createdAt
+      content: $content
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -24,9 +24,38 @@ export const getChatRoomMessagesSortedByTime = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      nextToken
     }
   }
 `;
+//export const getChatRoomMessagesSortedByTime = /* GraphQL */ `
+//  query MessagebyChatRoom(
+//    $chatRoomID: ID
+//    $createdAt: ModelStringKeyConditionInput
+//    $sortDirection: ModelSortDirection
+//    $filter: ModelChatMessageFilterInput
+//    $limit: Int
+//    $nextToken: String
+//  ) {
+//    messagebyChatRoom(
+//      chatRoomID: $chatRoomID
+//      createdAt: $createdAt
+//      sortDirection: $sortDirection
+//      filter: $filter
+//      limit: $limit
+//      nextToken: $nextToken
+//    ) {
+//      items {
+//        id
+//        userID
+//        content
+//        chatRoomID
+//        createdAt
+//        updatedAt
+//      }
+//    }
+//  }
+//`;
 
 /*
   query MessageByTime(

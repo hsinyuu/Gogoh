@@ -26,6 +26,7 @@ export const onCreateUser = /* GraphQL */ `
       chatUsers {
         nextToken
       }
+      test
       leaseTenantHistory {
         nextToken
       }
@@ -53,6 +54,7 @@ export const onUpdateUser = /* GraphQL */ `
       chatUsers {
         nextToken
       }
+      test
       leaseTenantHistory {
         nextToken
       }
@@ -80,6 +82,7 @@ export const onDeleteUser = /* GraphQL */ `
       chatUsers {
         nextToken
       }
+      test
       leaseTenantHistory {
         nextToken
       }
@@ -108,6 +111,7 @@ export const onCreateLeaseTenant = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -140,6 +144,7 @@ export const onUpdateLeaseTenant = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -172,6 +177,7 @@ export const onDeleteLeaseTenant = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -204,6 +210,7 @@ export const onCreateLeaseLandlord = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -236,6 +243,7 @@ export const onUpdateLeaseLandlord = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -268,6 +276,7 @@ export const onDeleteLeaseLandlord = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -413,6 +422,7 @@ export const onCreateChatUser = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -440,6 +450,7 @@ export const onUpdateChatUser = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -467,6 +478,7 @@ export const onDeleteChatUser = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -491,14 +503,6 @@ export const onCreateChatRoom = /* GraphQL */ `
       chatMessages {
         nextToken
       }
-      lastMessage {
-        id
-        userID
-        content
-        chatRoomID
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -514,14 +518,6 @@ export const onUpdateChatRoom = /* GraphQL */ `
       chatMessages {
         nextToken
       }
-      lastMessage {
-        id
-        userID
-        content
-        chatRoomID
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -536,14 +532,6 @@ export const onDeleteChatRoom = /* GraphQL */ `
       }
       chatMessages {
         nextToken
-      }
-      lastMessage {
-        id
-        userID
-        content
-        chatRoomID
-        createdAt
-        updatedAt
       }
       createdAt
       updatedAt

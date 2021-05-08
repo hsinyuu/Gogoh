@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { LearnMoreLinks } from "react-native/Libraries/NewAppScreen";
 
 const ChatMessageBox = (props) => {
-  const { message } = props;
+  const { message, alignment } = props;
+
   return (
-    <View style={styles.messageBox}>
+    <View style={[styles.messageBox, {alignSelf: 'flex-start'}]}>
       <Text style={styles.messageText}>{message}</Text>
     </View>
   );
@@ -13,13 +15,11 @@ const ChatMessageBox = (props) => {
 const styles = {
     messageBox: {
         backgroundColor: '#011627',
-        width: '70%',
         margin: 5,
         padding: 10,
         borderRadius: 5,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-end'
     },
     messageText: {
         color: '#FFFFFF',

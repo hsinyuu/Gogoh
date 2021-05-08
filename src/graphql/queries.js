@@ -14,6 +14,7 @@ export const getUser = /* GraphQL */ `
       chatUsers {
         nextToken
       }
+      test
       leaseTenantHistory {
         nextToken
       }
@@ -43,6 +44,7 @@ export const listUsers = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -64,6 +66,7 @@ export const getLeaseTenant = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -115,6 +118,7 @@ export const getLeaseLandlord = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -240,6 +244,7 @@ export const getChatUser = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -281,14 +286,6 @@ export const getChatRoom = /* GraphQL */ `
       }
       chatMessages {
         nextToken
-      }
-      lastMessage {
-        id
-        userID
-        content
-        chatRoomID
-        createdAt
-        updatedAt
       }
       createdAt
       updatedAt
@@ -400,6 +397,7 @@ export const userByEmail = /* GraphQL */ `
         avatarImage
         phoneNumber
         email
+        test
         createdAt
         updatedAt
       }
@@ -432,18 +430,18 @@ export const propertyByAddress = /* GraphQL */ `
     }
   }
 `;
-export const messagesbyChatRoom = /* GraphQL */ `
-  query MessagesbyChatRoom(
+export const messageByChatRoom = /* GraphQL */ `
+  query MessageByChatRoom(
     $chatRoomID: ID
-    $createdAt: ModelStringKeyConditionInput
+    $content: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelChatMessageFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    messagesbyChatRoom(
+    messageByChatRoom(
       chatRoomID: $chatRoomID
-      createdAt: $createdAt
+      content: $content
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit

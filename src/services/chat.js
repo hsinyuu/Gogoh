@@ -79,7 +79,7 @@ export const getSortedChatRoomMessagesFromChatRoomID = async (chatRoomID) => {
         })
     ).catch((error) => console.error(error))
     console.log('get', chatRoomData)
-    return chatRoomData.data.messagesbyChatRoom.items;
+    return chatRoomData.data.messageByChatRoom.items;
 }
 
 export const getChatRoomMessagesFromChatRoomID = async (chatRoomID) => {
