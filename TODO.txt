@@ -1,48 +1,31 @@
 ---------- Milestone 0 ---------- 
 1. Add Amplify Auth for user signin/out
 2. Add Amplify Schema and API
-Basic structure setup
+3. Basic structure and usecase
 [x] User profile 
 [x] Lease term
 [x] Lease term history
-[ ] Send invite status for lease
-[ ] Lease setup messenger and property module
-Events
-[ ] Events model
-    - Need to support 
-        - rating
-        - issue
-        - profile edit
-        - lease invite
-        - lease application request
+[x] Send invite status for lease
+[x] Lease setup messenger and property module
+[x] Create existing lease term, pend landlord to accept or make modifications
 Messenger
-[ ] Messenger model
-[ ] Auto update new message
+[x] Messenger model
+[x] Auto update new message
 Issue
 [ ] Issue report screen
-[ ] Add pictures
+[ ] List of issues
+[ ] Add messages related to issues
 Rating
 [ ] Rating report
 [ ] Rating profile
 [ ] Automated rating event
-        - User Type [Landlord/Tenant]
-        - Payment Method
-        - Payment History
-        - Setting
-        - Folders
-        - Lease
-        - Lease History
-    - Messenger chat room
-    - Messenger list
-    - Lease term
-    - Issue
-    - Rating report
-3. Messenger
-4. Lease Term
-    - Create existing lease term, pend landlord to accept or make modifications
-5. Issue module 
-6. Home page 
-7. Payment
+4. Event schedule and notifications
+Requirements:
+    - Should include any types of event including lease start/end, reporting period, payment, new issue etc
+    - Simple flow to add new event in the future
+    - Can be organized onto a calendar
+    - Update in user home page
+    - Send notification on upcoming events
 
 ---------- Milestone 1 ---------- 
 9. Landlord login / post
@@ -54,7 +37,7 @@ Rating
 ---------- Milestone 2 ---------- 
 15. Property API, post property
 16. Basic property list
-17. Tenant application
+17. Tenant application and schedule a viewing
 18. Landlord tenant selection
 19. Lease signing
 20. Add to folder
