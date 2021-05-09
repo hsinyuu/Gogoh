@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 import {
   TouchableOpacity,
   TextInput,
@@ -13,8 +15,7 @@ import {
   subscribeToChatRoom,
   createChatMessageInChatRoom,
   deleteChatMessageWithID,
-  getChatRoomMessagesFromChatRoomID,
-  getChatRoomUsernamesAndAvatarFromChatRoomID,
+  getChatRoomUserAndTermInfoFromRoomID,
   getSortedChatRoomMessagesFromChatRoomID,
 } from "services/chat";
 import RightAlignedContainer from "atoms/RightAlignedContainer";
@@ -23,17 +24,19 @@ import AvatarImage from "atoms/AvatarImage";
 
 const ChatRoom = ({ route }) => {
   const userContext = React.useContext(UserContext);
+  const navigation = useNavigation();
   const chatRoomID = route.params.id;
   const [inputMessage, setInputMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState({});
   const [userIDToUserInfo, setUserIDToUserInfo] = useState({});
+  const [leaseTermID, setLeaseTermID] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getChatRoomUsernamesAndAvatarFromChatRoomID(chatRoomID)
-      .then((chatUsersData) => {
-        chatUsersData.forEach((data) => {
+    getChatRoomUserAndTermInfoFromRoomID(chatRoomID)
+      .then((chatRoomData) => {
+        chatRoomData.userInfo.forEach((data) => {
           userIDToUserInfo[data.id] = {
             firstName: data.firstName,
             lastName: data.lastName,
@@ -41,22 +44,15 @@ const ChatRoom = ({ route }) => {
           };
         });
         setUserIDToUserInfo(userIDToUserInfo);
-        console.log("loaded user", userIDToUserInfo);
+        setLeaseTermID(chatRoomData.leaseTermID);
       })
+      .catch((err) => console.error(err))
       .finally(() => setLoading(false));
-    // getChatRoomMessagesFromChatRoomID(route.params.id).then((data) =>
+
     getSortedChatRoomMessagesFromChatRoomID(route.params.id).then((data) => {
-      console.log("ret", data);
       setMessages(data);
     });
   }, []);
-
-  useEffect(() => {
-    messages.forEach((msg) => {
-      console.log("p", msg);
-      console.log("t", userIDToUserInfo[msg.userID]);
-    });
-  }, [messages]);
 
   useEffect(() => {
     const sub = subscribeToChatRoom(chatRoomID, (newMessage) => {
@@ -76,25 +72,20 @@ const ChatRoom = ({ route }) => {
       return;
     }
     setInputMessage("");
-    createChatMessageInChatRoom(
-      chatRoomID,
-      userContext.id,
-      inputMessage
-    ).then((data) => console.log(data));
+    createChatMessageInChatRoom(chatRoomID, userContext.id, inputMessage);
   };
 
   const removeAllMessages = () => {
     messages.forEach((msg) => {
-      console.log("delete", msg);
-      deleteChatMessageWithID(msg.id).then((d) => console.log(d));
+      deleteChatMessageWithID(msg.id).then((d) => console.log("delete", d));
     });
   };
 
-  const renderChatMessageBox = ({item}) => {
+  const renderChatMessageBox = ({ item }) => {
     if (item.userID == userContext.id) {
       return (
         <RightAlignedContainer>
-          <ChatMessageBox message={item.content} alignment={"right"}/>
+          <ChatMessageBox message={item.content} alignment={"right"} />
           {userIDToUserInfo[item.userID] && (
             <AvatarImage
               size={30}
@@ -112,7 +103,7 @@ const ChatRoom = ({ route }) => {
               uri={userIDToUserInfo[item.userID].avatarImage}
             />
           )}
-          <ChatMessageBox message={item.content} alignment={"left"}/>
+          <ChatMessageBox message={item.content} alignment={"left"} />
         </LeftAlignedContainer>
       );
     }
@@ -147,6 +138,14 @@ const ChatRoom = ({ route }) => {
             </TouchableOpacity>
             <TouchableOpacity onPress={removeAllMessages}>
               <Text style={styles.send}>Clean</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ flexDirection: "column", justifyContent: "center" }}
+              onPress={() =>
+                navigation.navigate("CreateIssue", { leaseTermID })
+              }
+            >
+              <Ionicons name="ios-add-circle-outline" size={24} color="black" />
             </TouchableOpacity>
           </View>
         </View>

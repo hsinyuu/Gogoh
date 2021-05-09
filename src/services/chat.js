@@ -6,7 +6,7 @@ import {
     getChatRoomMessagesSortedByTime,
     getUserChatRooms,
     getChatRoomMessages,
-    getChatRoomUsernamesAndAvatar
+    getChatRoomUserAndTermInfo,
 } from "../graphql/customQuries";
 import {
     deleteChatMessage,
@@ -50,24 +50,30 @@ export const createChatMessageInChatRoom = async (chatRoomID, userID, content) =
     ).catch((error) => console.error(error))
 }
 
-export const getChatRoomUsernamesAndAvatarFromChatRoomID = async (chatRoomID) => {
+export const getChatRoomUserAndTermInfoFromRoomID = async (chatRoomID) => {
     return await API.graphql(
-        graphqlOperation(getChatRoomUsernamesAndAvatar, {
+        graphqlOperation(getChatRoomUserAndTermInfo, {
             id: chatRoomID
         })
     ).then((chatRoomData) => {
         const chatUsersData = chatRoomData.data.getChatRoom.chatUsers.items;
-        let ret = []
+        let userInfo = []
         chatUsersData.forEach((data) => {
-            ret = [...ret, {
+            userInfo = [...userInfo, {
                 id: data.user.id,
                 firstName: data.user.firstName,
                 lastName: data.user.lastName,
                 avatarImage: data.user.avatarImage
             }]
         })
-        return ret;
-    })
+
+        const leaseTermID = chatRoomData.data.getChatRoom.leaseTermID;
+        return {
+            userInfo,
+            leaseTermID
+        };
+    }).catch(err => console.error(err))
+
 }
 
 export const getSortedChatRoomMessagesFromChatRoomID = async (chatRoomID) => {

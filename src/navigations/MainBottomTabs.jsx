@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 
 const setTabBarVisible = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route);
-  const hideOnScreens = ["ChatRoom"];
+  const hideOnScreens = ["ChatRoom", "CreateIssue"];
   if (hideOnScreens.indexOf(routeName) > -1) return false;
   return true;
 };

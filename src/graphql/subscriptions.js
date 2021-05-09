@@ -9,6 +9,8 @@ export const onCreateChatMessageByChatRoomID = /* GraphQL */ `
       content
       chatRoomID
       createdAt
+      type
+      issueID
       updatedAt
     }
   }
@@ -315,6 +317,9 @@ export const onCreateLeaseTerm = /* GraphQL */ `
       termStartDate
       termEndDate
       status
+      issues {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -340,6 +345,9 @@ export const onUpdateLeaseTerm = /* GraphQL */ `
       termStartDate
       termEndDate
       status
+      issues {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -364,6 +372,75 @@ export const onDeleteLeaseTerm = /* GraphQL */ `
       }
       termStartDate
       termEndDate
+      status
+      issues {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateIssue = /* GraphQL */ `
+  subscription OnCreateIssue {
+    onCreateIssue {
+      id
+      leaseTermID
+      leaseTerm {
+        id
+        propertyID
+        termStartDate
+        termEndDate
+        status
+        createdAt
+        updatedAt
+      }
+      reporterUserID
+      description
+      status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateIssue = /* GraphQL */ `
+  subscription OnUpdateIssue {
+    onUpdateIssue {
+      id
+      leaseTermID
+      leaseTerm {
+        id
+        propertyID
+        termStartDate
+        termEndDate
+        status
+        createdAt
+        updatedAt
+      }
+      reporterUserID
+      description
+      status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteIssue = /* GraphQL */ `
+  subscription OnDeleteIssue {
+    onDeleteIssue {
+      id
+      leaseTermID
+      leaseTerm {
+        id
+        propertyID
+        termStartDate
+        termEndDate
+        status
+        createdAt
+        updatedAt
+      }
+      reporterUserID
+      description
       status
       createdAt
       updatedAt
@@ -429,6 +506,7 @@ export const onCreateChatUser = /* GraphQL */ `
       chatRoomID
       chatRoom {
         id
+        leaseTermID
         createdAt
         updatedAt
       }
@@ -457,6 +535,7 @@ export const onUpdateChatUser = /* GraphQL */ `
       chatRoomID
       chatRoom {
         id
+        leaseTermID
         createdAt
         updatedAt
       }
@@ -485,6 +564,7 @@ export const onDeleteChatUser = /* GraphQL */ `
       chatRoomID
       chatRoom {
         id
+        leaseTermID
         createdAt
         updatedAt
       }
@@ -497,6 +577,7 @@ export const onCreateChatRoom = /* GraphQL */ `
   subscription OnCreateChatRoom {
     onCreateChatRoom {
       id
+      leaseTermID
       chatUsers {
         nextToken
       }
@@ -512,6 +593,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
   subscription OnUpdateChatRoom {
     onUpdateChatRoom {
       id
+      leaseTermID
       chatUsers {
         nextToken
       }
@@ -527,6 +609,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
   subscription OnDeleteChatRoom {
     onDeleteChatRoom {
       id
+      leaseTermID
       chatUsers {
         nextToken
       }
@@ -546,6 +629,8 @@ export const onCreateChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
+      type
+      issueID
       updatedAt
     }
   }
@@ -558,6 +643,8 @@ export const onUpdateChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
+      type
+      issueID
       updatedAt
     }
   }
@@ -570,6 +657,8 @@ export const onDeleteChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
+      type
+      issueID
       updatedAt
     }
   }

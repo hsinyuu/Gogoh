@@ -333,6 +333,9 @@ export const createLeaseTerm = /* GraphQL */ `
       termStartDate
       termEndDate
       status
+      issues {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -361,6 +364,9 @@ export const updateLeaseTerm = /* GraphQL */ `
       termStartDate
       termEndDate
       status
+      issues {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -388,6 +394,84 @@ export const deleteLeaseTerm = /* GraphQL */ `
       }
       termStartDate
       termEndDate
+      status
+      issues {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createIssue = /* GraphQL */ `
+  mutation CreateIssue(
+    $input: CreateIssueInput!
+    $condition: ModelIssueConditionInput
+  ) {
+    createIssue(input: $input, condition: $condition) {
+      id
+      leaseTermID
+      leaseTerm {
+        id
+        propertyID
+        termStartDate
+        termEndDate
+        status
+        createdAt
+        updatedAt
+      }
+      reporterUserID
+      description
+      status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateIssue = /* GraphQL */ `
+  mutation UpdateIssue(
+    $input: UpdateIssueInput!
+    $condition: ModelIssueConditionInput
+  ) {
+    updateIssue(input: $input, condition: $condition) {
+      id
+      leaseTermID
+      leaseTerm {
+        id
+        propertyID
+        termStartDate
+        termEndDate
+        status
+        createdAt
+        updatedAt
+      }
+      reporterUserID
+      description
+      status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteIssue = /* GraphQL */ `
+  mutation DeleteIssue(
+    $input: DeleteIssueInput!
+    $condition: ModelIssueConditionInput
+  ) {
+    deleteIssue(input: $input, condition: $condition) {
+      id
+      leaseTermID
+      leaseTerm {
+        id
+        propertyID
+        termStartDate
+        termEndDate
+        status
+        createdAt
+        updatedAt
+      }
+      reporterUserID
+      description
       status
       createdAt
       updatedAt
@@ -465,6 +549,7 @@ export const createChatUser = /* GraphQL */ `
       chatRoomID
       chatRoom {
         id
+        leaseTermID
         createdAt
         updatedAt
       }
@@ -496,6 +581,7 @@ export const updateChatUser = /* GraphQL */ `
       chatRoomID
       chatRoom {
         id
+        leaseTermID
         createdAt
         updatedAt
       }
@@ -527,6 +613,7 @@ export const deleteChatUser = /* GraphQL */ `
       chatRoomID
       chatRoom {
         id
+        leaseTermID
         createdAt
         updatedAt
       }
@@ -542,6 +629,7 @@ export const createChatRoom = /* GraphQL */ `
   ) {
     createChatRoom(input: $input, condition: $condition) {
       id
+      leaseTermID
       chatUsers {
         nextToken
       }
@@ -560,6 +648,7 @@ export const updateChatRoom = /* GraphQL */ `
   ) {
     updateChatRoom(input: $input, condition: $condition) {
       id
+      leaseTermID
       chatUsers {
         nextToken
       }
@@ -578,6 +667,7 @@ export const deleteChatRoom = /* GraphQL */ `
   ) {
     deleteChatRoom(input: $input, condition: $condition) {
       id
+      leaseTermID
       chatUsers {
         nextToken
       }
@@ -600,6 +690,8 @@ export const createChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
+      type
+      issueID
       updatedAt
     }
   }
@@ -615,6 +707,8 @@ export const updateChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
+      type
+      issueID
       updatedAt
     }
   }
@@ -630,6 +724,8 @@ export const deleteChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
+      type
+      issueID
       updatedAt
     }
   }

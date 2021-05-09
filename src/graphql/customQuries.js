@@ -87,6 +87,51 @@ export const getChatRoomMessagesSortedByTime = /* GraphQL */ `
 `;
 */
 
+export const getChatRoomUserAndTermInfo = /* GraphQL */ `
+  query GetChatRoom($id: ID!) {
+    getChatRoom(id: $id) {
+      id
+      leaseTermID
+      chatUsers {
+        items {
+          user {
+            id
+            firstName
+            lastName
+            avatarImage
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const getChatRoomMessageAndUserInfo = /* GraphQL */ `
+  query GetChatRoom($id: ID!) {
+    getChatRoom(id: $id) {
+      id
+      chatMessages {
+        items {
+          id
+          userID
+          content
+          createdAt
+          updatedAt
+        }
+      }
+      chatUsers {
+        items {
+          user {
+            id
+            firstName
+            lastName
+            avatarImage
+          }
+        }
+      }
+    }
+  }
+`;
 
 export const getChatRoomMessages = /* GraphQL */ `
   query GetChatRoom($id: ID!) {

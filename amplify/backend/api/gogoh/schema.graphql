@@ -51,6 +51,20 @@ type LeaseTerm @model @key(name: "byProperty", fields: ["propertyID"]) {
   termStartDate: AWSDate!
   termEndDate: AWSDate!
   status: String!
+  issues: [Issue] @connection(keyName: "byLeaseTerm", fields: ["id"])
+}
+
+type Issue @model 
+  @key(name: "byLeaseTerm", fields:["leaseTermID"]) {
+  id: ID!
+  leaseTermID: ID!
+  leaseTerm: LeaseTerm! @connection(fields: ["leaseTermID"])
+  reporterUserID: ID!
+  description: String!
+  # photos
+  # videos
+  # messages
+  status: String! # [OPENED, RESOLVED, CLOSED]
 }
 
 type Property
@@ -63,6 +77,12 @@ type Property
   id: ID!
   address: String!
   leaseHistory: [LeaseTerm] @connection(keyName: "byProperty", fields: ["id"])
+  # photos
+  # videos
+  # description
+  # num rooms
+  # num people
+  # hydro electric etc...
 }
 
 type ChatUser
@@ -78,6 +98,7 @@ type ChatUser
 
 type ChatRoom @model {
   id: ID!
+  leaseTermID: ID!
   chatUsers: [ChatUser] @connection(keyName: "byChatRoom", fields: ["id"])
   chatMessages: [ChatMessage] @connection(keyName: "byChatRoom", fields: ["id"])
 }
@@ -90,7 +111,8 @@ type ChatMessage
   content: String!
   chatRoomID: ID!
   createdAt: String! # Amplify fills this in
-
+  type: String! # [ISSUE, ISSUE_RELATED_MESSAGE, MESSAGE] Amplify @model transoformer doens't seem to support graphql interface. Temporary workaround.
+  issueID: ID
 }
 
 type Event @model @key(name: "byUser", fields: ["userID"]) {
@@ -107,13 +129,15 @@ type Subscription {
     @aws_subscribe(mutations: ["createChatMessage"])
 }
 
-# type RatingReport @model {
-#}
+ type RatingReport @model {
+   id: ID!
+   submittedAt: AWSDateTime!
+}
 
 #type RatingCriteria @model {
 #  criteria: String!
 #  score: Int!
-#  description: String
+#  comment: String
 #  photosOrVideos: [String]
 #}
 

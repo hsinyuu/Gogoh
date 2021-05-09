@@ -1,34 +1,12 @@
 import React from "react";
 import Messenger from "screens/Messenger";
 import ChatRoom from "screens/ChatRoom";
+import CreateIssue from "screens/CreateIssue";
 import { createStackNavigator } from "@react-navigation/stack";
-import { useRoute } from "@react-navigation/native";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Stack = createStackNavigator();
-
-const MessengerHeader = () => {
-  return (
-    <View
-      style={{ flexDirection: "row", backgroundColor: "pink", width: "100%" }}
-    >
-      <Text style={{ fontSize: 30 }}>title</Text>
-    </View>
-  );
-};
-/*
-            <TouchableOpacity
-              style={{
-                backgroundColor: "pink",
-                padding: 5,
-                margin: 10,
-                borderRadius: 10,
-              }}
-            >
-              <Text>Search</Text>
-            </TouchableOpacity>
-*/
 
 const MessengerStack = () => {
   return (
@@ -52,6 +30,10 @@ const MessengerStack = () => {
         options={({ route }) => ({
           title: route.params.name,
         })}
+      />
+      <Stack.Screen
+        name="CreateIssue"
+        component={CreateIssue}
       />
     </Stack.Navigator>
   );

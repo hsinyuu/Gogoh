@@ -176,6 +176,9 @@ export const getLeaseTerm = /* GraphQL */ `
       termStartDate
       termEndDate
       status
+      issues {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -193,6 +196,48 @@ export const listLeaseTerms = /* GraphQL */ `
         propertyID
         termStartDate
         termEndDate
+        status
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getIssue = /* GraphQL */ `
+  query GetIssue($id: ID!) {
+    getIssue(id: $id) {
+      id
+      leaseTermID
+      leaseTerm {
+        id
+        propertyID
+        termStartDate
+        termEndDate
+        status
+        createdAt
+        updatedAt
+      }
+      reporterUserID
+      description
+      status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listIssues = /* GraphQL */ `
+  query ListIssues(
+    $filter: ModelIssueFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listIssues(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        leaseTermID
+        reporterUserID
+        description
         status
         createdAt
         updatedAt
@@ -251,6 +296,7 @@ export const getChatUser = /* GraphQL */ `
       chatRoomID
       chatRoom {
         id
+        leaseTermID
         createdAt
         updatedAt
       }
@@ -281,6 +327,7 @@ export const getChatRoom = /* GraphQL */ `
   query GetChatRoom($id: ID!) {
     getChatRoom(id: $id) {
       id
+      leaseTermID
       chatUsers {
         nextToken
       }
@@ -301,6 +348,7 @@ export const listChatRooms = /* GraphQL */ `
     listChatRooms(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        leaseTermID
         createdAt
         updatedAt
       }
@@ -316,6 +364,8 @@ export const getChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
+      type
+      issueID
       updatedAt
     }
   }
@@ -333,6 +383,8 @@ export const listChatMessages = /* GraphQL */ `
         content
         chatRoomID
         createdAt
+        type
+        issueID
         updatedAt
       }
       nextToken
@@ -453,6 +505,8 @@ export const messageByChatRoom = /* GraphQL */ `
         content
         chatRoomID
         createdAt
+        type
+        issueID
         updatedAt
       }
       nextToken
