@@ -4,6 +4,8 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import Debug from "screens/Debug";
 import MessengerStack from "navigations/MessengerStack";
 import ProfileStack from "navigations/ProfileStack";
 import HomeStack from "navigations/HomeStack";
@@ -59,6 +61,15 @@ const MainBottomTabs = () => {
               size={24}
               color={color}
             />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Debug"
+        component={Debug}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="api" size={24} color="black" />
           ),
         }}
       />
