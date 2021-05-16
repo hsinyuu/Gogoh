@@ -22,7 +22,7 @@ const setTabBarVisible = (route) => {
 
 const MainBottomTabs = () => {
   return (
-    <Tab.Navigator tabBarOptions={{ activeTintColor: "#f15454" }}>
+    <Tab.Navigator tabBarOptions={{ inactiveTintColor:'#D2D6FA', activeTintColor: "#7986BF" }}>
       <Tab.Screen
         name="Home"
         component={HomeStack}
@@ -69,7 +69,7 @@ const MainBottomTabs = () => {
         component={Debug}
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="api" size={24} color="black" />
+            <MaterialIcons name="api" size={24} color={color}/>
           ),
         }}
       />

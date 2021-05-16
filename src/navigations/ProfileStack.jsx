@@ -14,8 +14,7 @@ const ProfileStack = () => {
         name="Profile"
         component={Profile}
         options={{
-          headerTitleStyle: { fontSize: 30 },
-          headerStyle: { height: 110 },
+          headerShown: false
         }}
       />
       <Stack.Screen name="PersonalInfo" component={PersonalInfo} />

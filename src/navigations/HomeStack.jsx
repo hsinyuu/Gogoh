@@ -14,8 +14,7 @@ const HomeStack = () => {
         name="Home"
         component={Home}
         options={{
-          headerTitleStyle: { fontSize: 30 },
-          headerStyle: { height: 110 },
+          headerShown: false
         }}
       />
       <Stack.Screen 

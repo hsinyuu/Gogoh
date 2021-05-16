@@ -6,7 +6,6 @@ import { UserContext } from "../../context/UserContext";
 import { getChatRoomsFromUserID } from "services/chat";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
 const Messenger = () => {
   const userContext = React.useContext(UserContext);
   const [chatRooms, setChatRooms] = useState(null);
@@ -23,36 +22,37 @@ const Messenger = () => {
     );
   return (
     <View style={styles.container}>
+      <Text style={styles.header}>{"Chat"}</Text>
       <FlatList
         data={chatRooms.chatUsers.items}
-        renderItem={({ item }) => 
+        renderItem={({ item }) => (
           <ChatRoomListItem
             chatRoomID={item.chatRoom.id}
             updatedAt={item.chatRoom.updatedAt}
             chatUsers={item.chatRoom.chatUsers.items}
             chatMessages={item.chatRoom.chatMessages.items}
           />
-        }
+        )}
         keyExtractor={(item) => item.chatRoom.id}
       />
     </View>
   );
 };
 
+<View style={{}}></View>;
 const styles = {
   container: {
-    backgroundColor: "white",
-    paddingTop: 20,
+    paddingTop: 80,
+    paddingHorizontal:30,
     height: "100%",
+    backgroundColor: "white",
+  },
+  header: {
+    paddingBottom:40,
+    fontSize: 30,
+    color: "#102733",
+    fontFamily: "Avenir-Heavy",
   },
 };
 
 export default Messenger;
-
-/*
-      <FlatList
-        data={chatRoom}
-        renderItem={(item) => <MessengerListItem data={item} />}
-        keyExtractor={(item) => item.id}
-      />
-      */

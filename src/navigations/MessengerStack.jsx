@@ -15,13 +15,7 @@ const MessengerStack = () => {
         name="Messenger"
         component={Messenger}
         options={{
-          headerTitleStyle: { fontSize: 30 },
-          headerStyle: { height: 110 },
-          headerRight: () => (
-            <TouchableOpacity>
-              <Text style={{ fontSize: 18, padding: 10 }}>Search</Text>
-            </TouchableOpacity>
-          ),
+          headerShown: false
         }}
       />
       <Stack.Screen
