@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { ScrollView, View, Text, SafeAreaView } from "react-native";
-import Event from "molecules/Event";
-import { FontAwesome } from "@expo/vector-icons";
+import APIItem from "molecules/APIItem";
 import AvatarImage from "atoms/AvatarImage";
 import { UserContext } from "../../context/UserContext";
 import { useNavigation } from "@react-navigation/native";
@@ -13,6 +12,7 @@ import {
   deleteLeaseLandlordFromID,
   deleteLeaseTermFromID,
 } from "services/lease";
+import { deleteAllChatRoomAndChatUser } from "services/chat";
 
 const Debug = () => {
   const navigation = useNavigation();
@@ -24,40 +24,34 @@ const Debug = () => {
         <AvatarImage size={50} uri={userContext.avatarImage} />
         <View style={styles.container}>
           <Text style={styles.header}>APIs</Text>
-          <Event
-            name="Has an existing contract?"
-            details="Invite landlord to get started"
-            icon={<FontAwesome name="address-card-o" size={40} color="black" />}
+          <APIItem
+            name="Send lease invite"
             callback={() => navigation.navigate("AddressSearch")}
           />
-          <Event
+          <APIItem
             name="Remove all lease tenants"
-            icon={<FontAwesome name="address-card-o" size={40} color="black" />}
             callback={() => {
               listAllLeaseTenants().then(({ items }) => {
                 items.forEach((itm) => {
-                  console.log('delete', itm);
+                  console.log("delete", itm);
                   deleteLeaseTenantFromID(itm.id);
                 });
               });
             }}
           />
-          <Event
+          <APIItem
             name="Remove all lease landlords"
-            icon={<FontAwesome name="address-card-o" size={40} color="black" />}
             callback={() => {
               listAllLeaseLandlords().then(({ items }) => {
                 items.forEach((itm) => {
-                  console.log('delete', itm);
+                  console.log("delete", itm);
                   deleteLeaseLandlordFromID(itm.id);
                 });
               });
             }}
           />
-          <Event
+          <APIItem
             name="Remove all lease terms"
-            details="asdf"
-            icon={<FontAwesome name="address-card-o" size={40} color="black" />}
             callback={() => {
               listAllLeaseTerms().then(({ items }) => {
                 items.forEach((itm) => {
@@ -67,6 +61,18 @@ const Debug = () => {
               });
             }}
           />
+          <APIItem
+            name="Create chat"
+            callback={() => {
+              navigation.navigate("CreateChat");
+            }}
+          />
+          <APIItem
+            name="Delete all chat"
+            callback={() => {
+              deleteAllChatRoomAndChatUser();
+            }}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -74,6 +80,8 @@ const Debug = () => {
 };
 
 export default Debug;
+/*
+ */
 
 const styles = {
   container: {

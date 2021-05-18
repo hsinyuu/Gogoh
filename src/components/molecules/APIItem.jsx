@@ -1,16 +1,11 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { FontAwesome } from "@expo/vector-icons";
 
-const Event = (props) => {
+const APIItem = (props) => {
   const { name, details, time, callback } = props;
-  const Icon = props.icon;
   return (
     <TouchableOpacity style={styles.container} onPress={callback}>
-      <View style={styles.leftContainer}>
-        <FontAwesome name="address-book" size={40} color="#f15454" />
-      </View>
       <View style={styles.midContainer}>
         <Text style={styles.name}>{name}</Text>
         {details && <Text style={styles.details}>{details}</Text>}
@@ -53,9 +48,9 @@ const styles = {
     marginHorizontal: 30
   },
   midContainer: {
-    marginTop:20,
+    padding:20,
     flexDirection: "column",
   },
 };
 
-export default Event;
+export default APIItem;

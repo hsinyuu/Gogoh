@@ -5,7 +5,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import Debug from "screens/Debug";
+import DebugStack from "navigations/DebugStack";
 import MessengerStack from "navigations/MessengerStack";
 import ProfileStack from "navigations/ProfileStack";
 import HomeStack from "navigations/HomeStack";
@@ -66,7 +66,7 @@ const MainBottomTabs = () => {
       />
       <Tab.Screen
         name="Debug"
-        component={Debug}
+        component={DebugStack}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="api" size={24} color={color}/>

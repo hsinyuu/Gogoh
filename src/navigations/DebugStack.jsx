@@ -1,0 +1,57 @@
+import React from "react";
+import Debug from "screens/Debug";
+import { createStackNavigator } from "@react-navigation/stack";
+import AddExistingLease from "screens/AddExistingLease";
+import AddressSearch from "screens/AddressSearch";
+import Lease from "screens/Lease";
+import CreateChat from "screens/CreateChat";
+
+const Stack = createStackNavigator();
+
+const DebugStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Debug"
+        component={Debug}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen 
+        name="AddressSearch"
+        component={AddressSearch}
+        options={{
+          headerTitleStyle: { fontSize: 30 },
+          headerStyle: { height: 110 },
+        }}
+      />
+      <Stack.Screen
+        name="AddExistingLease"
+        component={AddExistingLease}
+        options={{
+          headerTitleStyle: { fontSize: 30 },
+          headerStyle: { height: 110 },
+        }}
+      />
+      <Stack.Screen
+        name="Lease"
+        component={Lease}
+        options={{
+          headerTitleStyle: { fontSize: 30 },
+          headerStyle: { height: 110 },
+        }}
+      />
+      <Stack.Screen
+        name="CreateChat"
+        component={CreateChat}
+        options={{
+          headerTitleStyle: { fontSize: 30 },
+          headerStyle: { height: 110 },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+export default DebugStack;

@@ -7,8 +7,16 @@ import {
     getUserChatRooms,
     getChatRoomMessages,
     getChatRoomUserAndTermInfo,
+    listChatMessagesID
 } from "../graphql/customQuries";
 import {
+    listChatMessages,
+    listChatRooms,
+    listChatUsers
+} from "../graphql/queries";
+import {
+    deleteChatRoom,
+    deleteChatUser,
     deleteChatMessage,
     createChatRoom,
     createChatMessage,
@@ -108,21 +116,93 @@ export const createChatRoomWithUsers = async (userIDs) => {
     const chatRoomData = await API.graphql(
         graphqlOperation(createChatRoom, {
             input: {}
-        }).catch(
-            (error) => {
-                console.error(error);
-                return;
-            }
-        )
+        })).catch(
+        (error) => {
+            console.error(error);
+            return;
+        }
     )
-    chatUserDatas = []
-    userIDs.foreach((userID) =>
-        API.graphql(createChatUser, {
-            userID,
-            chatRoomID: chatRoomData.id
-        }).then((data) => {
-            chatUserDatas = [...chatUserDatas, data]
+    var chatUserDatas = [];
+    for (var i = 0; i < userIDs.length; i++) {
+        const userID = userIDs[i];
+        const chatUserData = await API.graphql(
+            graphqlOperation(createChatUser, {
+                input: {
+                    userID,
+                    chatRoomID: chatRoomData.data.createChatRoom.id
+                }
+            })
+        ).then((data) => {
+            return data;
         })
-    )
+        chatUserDatas = [...chatUserDatas, chatUserData.data.createChatUser];
+    }
     return chatUserDatas;
 }
+
+
+export const deleteAllChatRoomAndChatUser = async () => {
+    await API.graphql(
+        graphqlOperation(listChatUsers, {})
+    ).then(async (listChatUserData) => {
+        for (var i = 0; i < listChatUserData.data.listChatUsers.items.length; i++) {
+            await API.graphql(
+                graphqlOperation(deleteChatUser, {
+                    input: {
+                        id: listChatUserData.data.listChatUsers.items[i].id
+                    }
+                })
+            )
+        }
+    })
+
+    await API.graphql(
+        graphqlOperation(listChatRooms, {})
+    ).then(async (listChatRoomData) => {
+        for (var i = 0; i < listChatRoomData.data.listChatRooms.items.length; i++) {
+            await API.graphql(
+                graphqlOperation(deleteChatRoom, {
+                    input: {
+                        id: listChatRoomData.data.listChatRooms.items[i].id
+                    }
+                })
+            )
+        }
+    })
+
+    await API.graphql(
+        graphqlOperation(listChatMessagesID, {})
+    ).then(async (listChatMessagesData) => {
+        for (var i = 0; i < listChatMessagesData.data.listChatMessages.items.length; i++) {
+            await API.graphql(
+                graphqlOperation(deleteChatMessage, {
+                    input: {
+                        id: listChatMessagesData.data.listChatMessages.items[i].id
+                    }
+                })
+            )
+        }
+    })
+}
+
+
+/*
+export const getChatRoomUserAndTermInfo =
+  query GetChatRoom($id: ID!) {
+    getChatRoom(id: $id) {
+      id
+      leaseTermID
+      chatUsers {
+        items {
+          user {
+            id
+            firstName
+            lastName
+            avatarImage
+          }
+        }
+      }
+    }
+  }
+`;
+*/

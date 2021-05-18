@@ -4,7 +4,6 @@ import ChatRoomListItem from "molecules/ChatRoomListItem";
 import { FlatList } from "react-native-gesture-handler";
 import { UserContext } from "../../context/UserContext";
 import { getChatRoomsFromUserID } from "services/chat";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const Messenger = () => {
   const userContext = React.useContext(UserContext);
@@ -16,9 +15,9 @@ const Messenger = () => {
   }, []);
   if (chatRooms == null)
     return (
-      <SafeAreaView>
+      <View style={styles.container}>
         <Text>loading</Text>
-      </SafeAreaView>
+      </View>
     );
   return (
     <View style={styles.container}>
@@ -43,12 +42,12 @@ const Messenger = () => {
 const styles = {
   container: {
     paddingTop: 80,
-    paddingHorizontal:30,
+    paddingHorizontal: 30,
     height: "100%",
     backgroundColor: "white",
   },
   header: {
-    paddingBottom:40,
+    paddingBottom: 40,
     fontSize: 30,
     color: "#102733",
     fontFamily: "Avenir-Heavy",

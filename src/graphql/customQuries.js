@@ -1,4 +1,18 @@
 
+export const listChatMessagesID = /* GraphQL */ `
+  query ListChatMessages(
+    $filter: ModelChatMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listChatMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+      }
+    }
+  }
+`;
+
 export const getChatRoomMessagesSortedByTime = /* GraphQL */ `
   query MessageByChatRoom(
     $chatRoomID: ID
