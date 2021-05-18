@@ -98,7 +98,7 @@ type ChatUser
 
 type ChatRoom @model {
   id: ID!
-  leaseTermID: ID!
+  leaseTermID: ID
   chatUsers: [ChatUser] @connection(keyName: "byChatRoom", fields: ["id"])
   chatMessages: [ChatMessage] @connection(keyName: "byChatRoom", fields: ["id"])
 }
@@ -111,8 +111,8 @@ type ChatMessage
   content: String!
   chatRoomID: ID!
   createdAt: String! # Amplify fills this in
-  type: String! # [ISSUE, ISSUE_RELATED_MESSAGE, MESSAGE] Amplify @model transoformer doens't seem to support graphql interface. Temporary workaround.
-  issueID: ID
+  #type: String! # [ISSUE, ISSUE_RELATED_MESSAGE, MESSAGE] Amplify @model transoformer doens't seem to support graphql interface. Temporary workaround.
+  #issueID: ID
 }
 
 type Event @model @key(name: "byUser", fields: ["userID"]) {

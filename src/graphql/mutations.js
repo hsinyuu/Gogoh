@@ -690,8 +690,6 @@ export const createChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
-      type
-      issueID
       updatedAt
     }
   }
@@ -707,8 +705,6 @@ export const updateChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
-      type
-      issueID
       updatedAt
     }
   }
@@ -724,8 +720,6 @@ export const deleteChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
-      type
-      issueID
       updatedAt
     }
   }
@@ -776,6 +770,45 @@ export const deleteEvent = /* GraphQL */ `
       action
       startTime
       endTime
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createRatingReport = /* GraphQL */ `
+  mutation CreateRatingReport(
+    $input: CreateRatingReportInput!
+    $condition: ModelRatingReportConditionInput
+  ) {
+    createRatingReport(input: $input, condition: $condition) {
+      id
+      submittedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateRatingReport = /* GraphQL */ `
+  mutation UpdateRatingReport(
+    $input: UpdateRatingReportInput!
+    $condition: ModelRatingReportConditionInput
+  ) {
+    updateRatingReport(input: $input, condition: $condition) {
+      id
+      submittedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteRatingReport = /* GraphQL */ `
+  mutation DeleteRatingReport(
+    $input: DeleteRatingReportInput!
+    $condition: ModelRatingReportConditionInput
+  ) {
+    deleteRatingReport(input: $input, condition: $condition) {
+      id
+      submittedAt
       createdAt
       updatedAt
     }

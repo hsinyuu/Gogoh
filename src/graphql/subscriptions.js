@@ -9,8 +9,6 @@ export const onCreateChatMessageByChatRoomID = /* GraphQL */ `
       content
       chatRoomID
       createdAt
-      type
-      issueID
       updatedAt
     }
   }
@@ -629,8 +627,6 @@ export const onCreateChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
-      type
-      issueID
       updatedAt
     }
   }
@@ -643,8 +639,6 @@ export const onUpdateChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
-      type
-      issueID
       updatedAt
     }
   }
@@ -657,8 +651,6 @@ export const onDeleteChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
-      type
-      issueID
       updatedAt
     }
   }
@@ -700,6 +692,36 @@ export const onDeleteEvent = /* GraphQL */ `
       action
       startTime
       endTime
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateRatingReport = /* GraphQL */ `
+  subscription OnCreateRatingReport {
+    onCreateRatingReport {
+      id
+      submittedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateRatingReport = /* GraphQL */ `
+  subscription OnUpdateRatingReport {
+    onUpdateRatingReport {
+      id
+      submittedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteRatingReport = /* GraphQL */ `
+  subscription OnDeleteRatingReport {
+    onDeleteRatingReport {
+      id
+      submittedAt
       createdAt
       updatedAt
     }

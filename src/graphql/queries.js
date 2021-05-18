@@ -364,8 +364,6 @@ export const getChatMessage = /* GraphQL */ `
       content
       chatRoomID
       createdAt
-      type
-      issueID
       updatedAt
     }
   }
@@ -383,8 +381,6 @@ export const listChatMessages = /* GraphQL */ `
         content
         chatRoomID
         createdAt
-        type
-        issueID
         updatedAt
       }
       nextToken
@@ -419,6 +415,33 @@ export const listEvents = /* GraphQL */ `
         action
         startTime
         endTime
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getRatingReport = /* GraphQL */ `
+  query GetRatingReport($id: ID!) {
+    getRatingReport(id: $id) {
+      id
+      submittedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listRatingReports = /* GraphQL */ `
+  query ListRatingReports(
+    $filter: ModelRatingReportFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listRatingReports(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        submittedAt
         createdAt
         updatedAt
       }
@@ -505,8 +528,6 @@ export const messageByChatRoom = /* GraphQL */ `
         content
         chatRoomID
         createdAt
-        type
-        issueID
         updatedAt
       }
       nextToken
