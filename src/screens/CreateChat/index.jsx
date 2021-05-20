@@ -5,7 +5,6 @@ import { UserContext } from "../../context/UserContext";
 import { useForm } from "utils/hooks";
 import { getUserByEmail } from "services/user";
 import { createChatRoomWithUsers } from "services/chat";
-import { useNavigation } from "@react-navigation/native";
 
 const CreateChat = () => {
   const userContext = React.useContext(UserContext);
@@ -19,9 +18,7 @@ const CreateChat = () => {
         console.warn("User email doesn't exist");
         return;
       } else {
-        createChatRoomWithUsers([data.items[0].id, userContext.id]).then(
-          (chatRoomData) => console.log(chatRoomData)
-        );
+        createChatRoomWithUsers([data.items[0].id, userContext.id])
       }
     });
   };

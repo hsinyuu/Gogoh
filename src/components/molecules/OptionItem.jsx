@@ -9,7 +9,6 @@ const OptionItem = (props) => {
   const { name, navigateTo, onPress } = props;
   const Icon = props.icon;
   const runCallbackAndNavigate = () => {
-    console.log(onPress)
     if (onPress != null) onPress();
     if (navigateTo != null) navigation.navigate(navigateTo);
   }

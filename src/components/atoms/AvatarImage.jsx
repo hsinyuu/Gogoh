@@ -14,7 +14,6 @@ const AvatarImage = (props) => {
         shadowRadius: 8,
       }
     : {};
-  console.log(shadowed, shadowStyle);
   return (
     <View style={shadowStyle}>
       <Image

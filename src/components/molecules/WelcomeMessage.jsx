@@ -6,7 +6,6 @@ import AvatarImage from "atoms/AvatarImage";
 const WelcomeMessage = () => {
   const userContext = useContext(UserContext);
   const username = "Riley Cooper";
-  console.log(userContext);
   return (
     <View style={styles.container}>
       <View style={styles.messageContainer}>

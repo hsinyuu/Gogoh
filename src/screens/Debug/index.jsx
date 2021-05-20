@@ -33,7 +33,6 @@ const Debug = () => {
             callback={() => {
               listAllLeaseTenants().then(({ items }) => {
                 items.forEach((itm) => {
-                  console.log("delete", itm);
                   deleteLeaseTenantFromID(itm.id);
                 });
               });
@@ -44,7 +43,6 @@ const Debug = () => {
             callback={() => {
               listAllLeaseLandlords().then(({ items }) => {
                 items.forEach((itm) => {
-                  console.log("delete", itm);
                   deleteLeaseLandlordFromID(itm.id);
                 });
               });
@@ -55,7 +53,6 @@ const Debug = () => {
             callback={() => {
               listAllLeaseTerms().then(({ items }) => {
                 items.forEach((itm) => {
-                  console.log(itm);
                   deleteLeaseTermFromID(itm.id);
                 });
               });

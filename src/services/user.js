@@ -34,7 +34,6 @@ export const fetchUser = async () => {
 };
 
 export const createNewUser = async (firstName, lastName, userRole) => {
-  console.log('createNewUser');
   const userInfo = await Auth.currentAuthenticatedUser({
     params: {
       bypassCache: true

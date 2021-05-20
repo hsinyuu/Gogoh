@@ -44,7 +44,6 @@ const AddExistingLease = ({ route }) => {
 
     let invitedLeaseUserData = await getUserByEmail(formValues.inviteEmail)
       .then((userData) => {
-        console.log(userData);
         if (userData.items.length == 0) {
           console.log("Need implementation: Send invite through email")
           return;

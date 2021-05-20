@@ -17,8 +17,7 @@ const CreateUser = (props) => {
         formValues.firstName,
         formValues.lastName,
         formValues.userRole
-    ).then((newUserData) => {
-        console.log(newUserData);
+    ).then(() => {
         setCreateUser(false);
     })
   };
